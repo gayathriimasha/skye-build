@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../viewmodels/home_viewmodel.dart';
 import '../widgets/aura_hero_section.dart';
 import '../widgets/aura_metrics_section.dart';
+import '../widgets/hourly_forecast_strip.dart';
 import '../../search/views/aura_search_screen.dart';
 import '../../forecast/views/aura_forecast_screen.dart';
 import '../../settings/views/aura_settings_screen.dart';
@@ -119,6 +120,18 @@ class _AuraHomeScreenState extends ConsumerState<AuraHomeScreen> {
                                   weather: homeState.weather!,
                                   onForecastTap: _openForecast,
                                 ),
+                                const SizedBox(height: 15),
+                                // Hourly forecast strip (Apple-style)
+                                if (homeState.forecast != null &&
+                                    homeState.forecast!.hourlyForecasts.isNotEmpty)
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
+                                    child: HourlyForecastStrip(
+                                      hours: homeState.forecast!.hourlyForecasts,
+                                    ),
+                                  ),
+
+                                const SizedBox(height: 8),
 
                                 // Metrics section
                                 AuraMetricsSection(

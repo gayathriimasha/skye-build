@@ -1,41 +1,23 @@
 import 'package:flutter/material.dart';
 import '../constants/app_colors.dart';
+import '../theme/aura_colors.dart';
 import '../../data/models/weather_model.dart';
 
 class WeatherUtils {
   static LinearGradient getWeatherGradient(WeatherCondition condition) {
     switch (condition) {
       case WeatherCondition.sunny:
-        return const LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: AppColors.sunnyGradient,
-        );
+        return AuraColors.sunnyGradient;
       case WeatherCondition.cloudy:
-        return const LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: AppColors.cloudyGradient,
-        );
+        return AuraColors.cloudyGradient;
       case WeatherCondition.rainy:
+        return AuraColors.rainyGradient;
       case WeatherCondition.thunderstorm:
-        return const LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: AppColors.rainyGradient,
-        );
+        return AuraColors.thunderstormGradient;
       case WeatherCondition.snowy:
-        return const LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: AppColors.snowyGradient,
-        );
+        return AuraColors.snowyGradient;
       case WeatherCondition.clearNight:
-        return const LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: AppColors.nightGradient,
-        );
+        return AuraColors.clearNightGradient;
     }
   }
 

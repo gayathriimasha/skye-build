@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../viewmodels/home_viewmodel.dart';
 import '../widgets/hero_weather_section.dart';
-import '../widgets/temperature_card.dart';
 import '../widgets/weather_metrics_grid.dart';
 import '../../../core/constants/app_colors.dart';
 

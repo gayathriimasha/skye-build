@@ -6,6 +6,8 @@ import '../../home/viewmodels/home_viewmodel.dart';
 import '../../../core/theme/aura_colors.dart';
 import '../../../core/theme/aura_typography.dart';
 
+export '../viewmodels/search_viewmodel.dart' show RegionFilter;
+
 class AuraSearchScreen extends ConsumerStatefulWidget {
   const AuraSearchScreen({super.key});
 
@@ -99,6 +101,24 @@ class _AuraSearchScreenState extends ConsumerState<AuraSearchScreen> {
               ),
             ),
 
+            // Filters
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Row(
+                children: [
+                  // Region filter
+                  Expanded(
+                    child: _buildRegionFilter(searchState),
+                  ),
+                  const SizedBox(width: 12),
+                  // Favorites toggle
+                  _buildFavoritesToggle(searchState),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 16),
+
             // Search results
             Expanded(
               child: searchState.isLoading
@@ -109,11 +129,147 @@ class _AuraSearchScreenState extends ConsumerState<AuraSearchScreen> {
                     )
                   : searchState.error != null
                       ? _buildErrorState(searchState.error!)
-                      : searchState.results.isEmpty
-                          ? _buildEmptyState()
-                          : _buildResultsList(searchState.results),
+                      : searchState.filteredResults.isEmpty
+                          ? _buildEmptyState(searchState.showFavoritesOnly)
+                          : _buildResultsList(searchState.filteredResults),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRegionFilter(SearchState searchState) {
+    return Container(
+      height: 56,
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      decoration: BoxDecoration(
+        color: AuraColors.glassLight,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: AuraColors.glassBorder,
+          width: 1,
+        ),
+      ),
+      child: DropdownButton<RegionFilter>(
+        value: searchState.regionFilter,
+        isExpanded: true,
+        underline: const SizedBox(),
+        dropdownColor: AuraColors.surfaceDark,
+        icon: Icon(
+          Icons.arrow_drop_down_rounded,
+          color: AuraColors.textTertiary,
+        ),
+        style: AuraTypography.body,
+        items: [
+          DropdownMenuItem(
+            value: RegionFilter.all,
+            child: Row(
+              children: [
+                Icon(Icons.public_rounded, size: 20, color: AuraColors.skyBlue),
+                const SizedBox(width: 12),
+                Text('All Regions', style: AuraTypography.body),
+              ],
+            ),
+          ),
+          DropdownMenuItem(
+            value: RegionFilter.africa,
+            child: Row(
+              children: [
+                Icon(Icons.explore_rounded, size: 20, color: AuraColors.skyBlue),
+                const SizedBox(width: 12),
+                Text('Africa', style: AuraTypography.body),
+              ],
+            ),
+          ),
+          DropdownMenuItem(
+            value: RegionFilter.asia,
+            child: Row(
+              children: [
+                Icon(Icons.explore_rounded, size: 20, color: AuraColors.skyBlue),
+                const SizedBox(width: 12),
+                Text('Asia', style: AuraTypography.body),
+              ],
+            ),
+          ),
+          DropdownMenuItem(
+            value: RegionFilter.europe,
+            child: Row(
+              children: [
+                Icon(Icons.explore_rounded, size: 20, color: AuraColors.skyBlue),
+                const SizedBox(width: 12),
+                Text('Europe', style: AuraTypography.body),
+              ],
+            ),
+          ),
+          DropdownMenuItem(
+            value: RegionFilter.northAmerica,
+            child: Row(
+              children: [
+                Icon(Icons.explore_rounded, size: 20, color: AuraColors.skyBlue),
+                const SizedBox(width: 12),
+                Text('N. America', style: AuraTypography.body),
+              ],
+            ),
+          ),
+          DropdownMenuItem(
+            value: RegionFilter.southAmerica,
+            child: Row(
+              children: [
+                Icon(Icons.explore_rounded, size: 20, color: AuraColors.skyBlue),
+                const SizedBox(width: 12),
+                Text('S. America', style: AuraTypography.body),
+              ],
+            ),
+          ),
+          DropdownMenuItem(
+            value: RegionFilter.oceania,
+            child: Row(
+              children: [
+                Icon(Icons.explore_rounded, size: 20, color: AuraColors.skyBlue),
+                const SizedBox(width: 12),
+                Text('Oceania', style: AuraTypography.body),
+              ],
+            ),
+          ),
+        ],
+        onChanged: (value) {
+          if (value != null) {
+            ref.read(searchProvider.notifier).setRegionFilter(value);
+          }
+        },
+      ),
+    );
+  }
+
+  Widget _buildFavoritesToggle(SearchState searchState) {
+    return GestureDetector(
+      onTap: () {
+        ref.read(searchProvider.notifier).toggleShowFavorites();
+      },
+      child: Container(
+        width: 56,
+        height: 56,
+        decoration: BoxDecoration(
+          color: searchState.showFavoritesOnly
+              ? AuraColors.skyBlue.withOpacity(0.2)
+              : AuraColors.glassLight,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: searchState.showFavoritesOnly
+                ? AuraColors.skyBlue
+                : AuraColors.glassBorder,
+            width: 1,
+          ),
+        ),
+        child: Icon(
+          searchState.showFavoritesOnly
+              ? Icons.favorite_rounded
+              : Icons.favorite_border_rounded,
+          color: searchState.showFavoritesOnly
+              ? AuraColors.skyBlue
+              : AuraColors.textTertiary,
+          size: 24,
         ),
       ),
     );
@@ -125,6 +281,7 @@ class _AuraSearchScreenState extends ConsumerState<AuraSearchScreen> {
       itemCount: results.length,
       itemBuilder: (context, index) {
         final location = results[index];
+        final isFav = ref.read(searchProvider.notifier).isFavorite(location);
         return FadeInUp(
           duration: const Duration(milliseconds: 400),
           delay: Duration(milliseconds: index * 50),
@@ -176,6 +333,16 @@ class _AuraSearchScreenState extends ConsumerState<AuraSearchScreen> {
                       ],
                     ),
                   ),
+                  IconButton(
+                    onPressed: () {
+                      ref.read(searchProvider.notifier).toggleFavorite(location);
+                    },
+                    icon: Icon(
+                      isFav ? Icons.favorite_rounded : Icons.favorite_border_rounded,
+                      color: isFav ? AuraColors.skyBlue : AuraColors.textMuted,
+                      size: 24,
+                    ),
+                  ),
                   Icon(
                     Icons.chevron_right_rounded,
                     color: AuraColors.textMuted,
@@ -189,7 +356,7 @@ class _AuraSearchScreenState extends ConsumerState<AuraSearchScreen> {
     );
   }
 
-  Widget _buildEmptyState() {
+  Widget _buildEmptyState(bool showingFavorites) {
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(24),
@@ -197,18 +364,20 @@ class _AuraSearchScreenState extends ConsumerState<AuraSearchScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
-              Icons.search_rounded,
+              showingFavorites ? Icons.favorite_border_rounded : Icons.search_rounded,
               size: 64,
               color: AuraColors.textMuted,
             ),
             const SizedBox(height: 24),
             Text(
-              'Search for a city',
+              showingFavorites ? 'No favorites yet' : 'Search for a city',
               style: AuraTypography.title,
             ),
             const SizedBox(height: 12),
             Text(
-              'Enter at least 3 characters to search',
+              showingFavorites
+                  ? 'Add cities to favorites to see them here'
+                  : 'Enter at least 3 characters to search',
               style: AuraTypography.body.copyWith(
                 color: AuraColors.textTertiary,
               ),

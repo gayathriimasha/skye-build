@@ -186,8 +186,14 @@ class _AuraForecastScreenState extends ConsumerState<AuraForecastScreen> {
                 ),
                 const SizedBox(width: 16),
                 Icon(
-                  Icons.wb_sunny_rounded,
-                  color: AuraColors.sunYellow,
+                  AuraWeatherUtils.getIconFromCondition(
+                    hourly.condition,
+                    iconCode: hourly.icon,
+                  ),
+                  color: AuraWeatherUtils.getIconColor(
+                    hourly.condition,
+                    iconCode: hourly.icon,
+                  ),
                   size: 32,
                 ),
                 const Spacer(),
@@ -231,8 +237,14 @@ class _AuraForecastScreenState extends ConsumerState<AuraForecastScreen> {
                   ),
                 ),
                 Icon(
-                  Icons.wb_sunny_rounded,
-                  color: AuraColors.sunYellow,
+                  AuraWeatherUtils.getIconFromCondition(
+                    daily.condition,
+                    iconCode: daily.icon,
+                  ),
+                  color: AuraWeatherUtils.getIconColor(
+                    daily.condition,
+                    iconCode: daily.icon,
+                  ),
                   size: 40,
                 ),
                 const Spacer(),

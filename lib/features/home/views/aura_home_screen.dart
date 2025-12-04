@@ -4,6 +4,7 @@ import '../viewmodels/home_viewmodel.dart';
 import '../widgets/aura_hero_section.dart';
 import '../widgets/aura_metrics_section.dart';
 import '../widgets/hourly_forecast_strip.dart';
+import '../widgets/plant_care_alert.dart';
 import '../../search/views/aura_search_screen.dart';
 import '../../forecast/views/aura_forecast_screen.dart';
 import '../../settings/views/aura_settings_screen.dart';
@@ -132,6 +133,12 @@ class _AuraHomeScreenState extends ConsumerState<AuraHomeScreen> {
                                   ),
 
                                 const SizedBox(height: 8),
+
+                                // Plant Care Alert
+                                PlantCareAlert(
+                                  temperature: homeState.weather!.temperature,
+                                  humidity: homeState.weather!.humidity,
+                                ),
 
                                 // Metrics section
                                 AuraMetricsSection(

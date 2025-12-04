@@ -13,6 +13,13 @@ class AuraColors {
   static const Color twilightPurple = Color(0xFFA855F7);
   static const Color sunYellow = Color(0xFFFACC15);
 
+  // Weather Condition Colors
+  static const Color moonLight = Color(0xFFC4B5FD);
+  static const Color rainBlue = Color(0xFF0EA5E9);
+  static const Color stormPurple = Color(0xFF7C3AED);
+  static const Color snowWhite = Color(0xFFE0F2FE);
+  static const Color cloudGray = Color(0xFF94A3B8);
+
   // Text Colors
   static const Color textPrimary = Color(0xFFF9FAFB);
   static const Color textSecondary = Color(0xFFE5E7EB);

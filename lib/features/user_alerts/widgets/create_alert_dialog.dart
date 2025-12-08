@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../data/models/user_alert_model.dart';
 import '../viewmodels/user_alerts_viewmodel.dart';
-import '../../../core/theme/aura_colors.dart';
+import '../../../core/theme/skye_colors.dart';
 
 class CreateAlertDialog extends ConsumerStatefulWidget {
   final UserAlertModel? existingAlert;
@@ -40,7 +40,7 @@ class _CreateAlertDialogState extends ConsumerState<CreateAlertDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: AuraColors.surfaceDark,
+      backgroundColor: SkyeColors.surfaceDark,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(24),
       ),
@@ -55,14 +55,14 @@ class _CreateAlertDialogState extends ConsumerState<CreateAlertDialog> {
                 children: [
                   Icon(
                     Icons.notifications_active_rounded,
-                    color: AuraColors.skyBlue,
+                    color: SkyeColors.skyBlue,
                     size: 28,
                   ),
                   const SizedBox(width: 12),
                   Text(
                     widget.existingAlert == null ? 'Create Alert' : 'Edit Alert',
                     style: TextStyle(
-                      color: AuraColors.textPrimary,
+                      color: SkyeColors.textPrimary,
                       fontSize: 22,
                       fontWeight: FontWeight.w600,
                     ),
@@ -73,7 +73,7 @@ class _CreateAlertDialogState extends ConsumerState<CreateAlertDialog> {
               Text(
                 'Alert Name',
                 style: TextStyle(
-                  color: AuraColors.textSecondary,
+                  color: SkyeColors.textSecondary,
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                 ),
@@ -81,10 +81,10 @@ class _CreateAlertDialogState extends ConsumerState<CreateAlertDialog> {
               const SizedBox(height: 8),
               TextField(
                 controller: _nameController,
-                style: TextStyle(color: AuraColors.textPrimary),
+                style: TextStyle(color: SkyeColors.textPrimary),
                 decoration: InputDecoration(
                   hintText: 'e.g., Cold Weather Alert',
-                  hintStyle: TextStyle(color: AuraColors.textSecondary.withOpacity(0.5)),
+                  hintStyle: TextStyle(color: SkyeColors.textSecondary.withOpacity(0.5)),
                   filled: true,
                   fillColor: Colors.white.withOpacity(0.05),
                   border: OutlineInputBorder(
@@ -98,7 +98,7 @@ class _CreateAlertDialogState extends ConsumerState<CreateAlertDialog> {
               Text(
                 'Condition Type',
                 style: TextStyle(
-                  color: AuraColors.textSecondary,
+                  color: SkyeColors.textSecondary,
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                 ),
@@ -116,7 +116,7 @@ class _CreateAlertDialogState extends ConsumerState<CreateAlertDialog> {
                         Text(
                           'Operator',
                           style: TextStyle(
-                            color: AuraColors.textSecondary,
+                            color: SkyeColors.textSecondary,
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                           ),
@@ -135,7 +135,7 @@ class _CreateAlertDialogState extends ConsumerState<CreateAlertDialog> {
                         Text(
                           'Threshold',
                           style: TextStyle(
-                            color: AuraColors.textSecondary,
+                            color: SkyeColors.textSecondary,
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                           ),
@@ -144,10 +144,10 @@ class _CreateAlertDialogState extends ConsumerState<CreateAlertDialog> {
                         TextField(
                           controller: _thresholdController,
                           keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                          style: TextStyle(color: AuraColors.textPrimary),
+                          style: TextStyle(color: SkyeColors.textPrimary),
                           decoration: InputDecoration(
                             hintText: '22.0',
-                            hintStyle: TextStyle(color: AuraColors.textSecondary.withOpacity(0.5)),
+                            hintStyle: TextStyle(color: SkyeColors.textSecondary.withOpacity(0.5)),
                             filled: true,
                             fillColor: Colors.white.withOpacity(0.05),
                             border: OutlineInputBorder(
@@ -156,7 +156,7 @@ class _CreateAlertDialogState extends ConsumerState<CreateAlertDialog> {
                             ),
                             contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                             suffixText: _getUnit(),
-                            suffixStyle: TextStyle(color: AuraColors.textSecondary),
+                            suffixStyle: TextStyle(color: SkyeColors.textSecondary),
                           ),
                         ),
                       ],
@@ -179,7 +179,7 @@ class _CreateAlertDialogState extends ConsumerState<CreateAlertDialog> {
                       child: Text(
                         'Cancel',
                         style: TextStyle(
-                          color: AuraColors.textSecondary,
+                          color: SkyeColors.textSecondary,
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),
@@ -191,7 +191,7 @@ class _CreateAlertDialogState extends ConsumerState<CreateAlertDialog> {
                     child: ElevatedButton(
                       onPressed: _saveAlert,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AuraColors.skyBlue,
+                        backgroundColor: SkyeColors.skyBlue,
                         padding: const EdgeInsets.symmetric(vertical: 14),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
@@ -227,8 +227,8 @@ class _CreateAlertDialogState extends ConsumerState<CreateAlertDialog> {
         value: _selectedCondition,
         isExpanded: true,
         underline: const SizedBox(),
-        dropdownColor: AuraColors.surfaceDark,
-        style: TextStyle(color: AuraColors.textPrimary, fontSize: 16),
+        dropdownColor: SkyeColors.surfaceDark,
+        style: TextStyle(color: SkyeColors.textPrimary, fontSize: 16),
         items: AlertConditionType.values.map((type) {
           return DropdownMenuItem(
             value: type,
@@ -255,8 +255,8 @@ class _CreateAlertDialogState extends ConsumerState<CreateAlertDialog> {
         value: _selectedOperator,
         isExpanded: true,
         underline: const SizedBox(),
-        dropdownColor: AuraColors.surfaceDark,
-        style: TextStyle(color: AuraColors.textPrimary, fontSize: 16),
+        dropdownColor: SkyeColors.surfaceDark,
+        style: TextStyle(color: SkyeColors.textPrimary, fontSize: 16),
         items: AlertOperator.values.map((op) {
           return DropdownMenuItem(
             value: op,
@@ -316,7 +316,7 @@ class _CreateAlertDialogState extends ConsumerState<CreateAlertDialog> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: const Text('Please fill in all fields'),
-          backgroundColor: AuraColors.error,
+          backgroundColor: SkyeColors.error,
         ),
       );
       return;
@@ -327,7 +327,7 @@ class _CreateAlertDialogState extends ConsumerState<CreateAlertDialog> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: const Text('Please enter a valid number'),
-          backgroundColor: AuraColors.error,
+          backgroundColor: SkyeColors.error,
         ),
       );
       return;

@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import '../theme/aura_colors.dart';
+import '../theme/skye_colors.dart';
 
 /// Premium glassmorphism card with blur and noise texture
 class GlassCard extends StatelessWidget {
@@ -40,18 +40,18 @@ class GlassCard extends StatelessWidget {
           height: height,
           padding: padding ?? const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: backgroundColor ?? AuraColors.glassLight,
+            color: backgroundColor ?? SkyeColors.glassLight,
             borderRadius: BorderRadius.circular(borderRadius),
             border: withBorder
                 ? Border.all(
-                    color: AuraColors.glassBorder,
+                    color: SkyeColors.glassBorder,
                     width: 1,
                   )
                 : null,
             boxShadow: withShadow
                 ? [
                     BoxShadow(
-                      color: AuraColors.shadowSoft,
+                      color: SkyeColors.shadowSoft,
                       blurRadius: 20,
                       offset: const Offset(0, 8),
                     ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
-import '../../../core/theme/aura_colors.dart';
-import '../../../core/theme/aura_typography.dart';
+import '../../../core/theme/skye_colors.dart';
+import '../../../core/theme/skye_typography.dart';
 import '../../../core/widgets/glass_card.dart';
 import '../../../data/models/uv_data_model.dart';
 import '../../../core/utils/uv_utils.dart';
@@ -35,8 +35,8 @@ class UVIndexCard extends StatelessWidget {
               children: [
                 Text(
                   'UV Index & Sun Safety',
-                  style: AuraTypography.bodySmall.copyWith(
-                    color: AuraColors.textSecondary,
+                  style: SkyeTypography.bodySmall.copyWith(
+                    color: SkyeColors.textSecondary,
                     fontWeight: FontWeight.w600,
                     fontSize: 12,
                     letterSpacing: 0.5,
@@ -53,7 +53,7 @@ class UVIndexCard extends StatelessWidget {
                   ),
                   child: Text(
                     UVUtils.getSafetyLevelName(safetyLevel).toUpperCase(),
-                    style: AuraTypography.caption.copyWith(
+                    style: SkyeTypography.caption.copyWith(
                       color: UVUtils.getSafetyLevelColor(safetyLevel),
                       fontWeight: FontWeight.w600,
                       fontSize: 10,
@@ -80,7 +80,7 @@ class UVIndexCard extends StatelessWidget {
                     children: [
                       Text(
                         uvData.uvIndex.toStringAsFixed(1),
-                        style: AuraTypography.temperature.copyWith(
+                        style: SkyeTypography.temperature.copyWith(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
@@ -88,7 +88,7 @@ class UVIndexCard extends StatelessWidget {
                       ),
                       Text(
                         'UV',
-                        style: AuraTypography.caption.copyWith(
+                        style: SkyeTypography.caption.copyWith(
                           color: Colors.white.withOpacity(0.9),
                           fontSize: 9,
                           fontWeight: FontWeight.w600,
@@ -106,7 +106,7 @@ class UVIndexCard extends StatelessWidget {
                     children: [
                       Text(
                         UVUtils.getProtectionRecommendation(safetyLevel),
-                        style: AuraTypography.subtitle.copyWith(
+                        style: SkyeTypography.subtitle.copyWith(
                           fontSize: 15,
                           fontWeight: FontWeight.w600,
                         ),
@@ -114,8 +114,8 @@ class UVIndexCard extends StatelessWidget {
                       const SizedBox(height: 4),
                       Text(
                         _getShortMessage(safetyLevel, isPeakHours),
-                        style: AuraTypography.bodySmall.copyWith(
-                          color: AuraColors.textSecondary,
+                        style: SkyeTypography.bodySmall.copyWith(
+                          color: SkyeColors.textSecondary,
                           fontSize: 13,
                           height: 1.4,
                         ),
@@ -132,10 +132,10 @@ class UVIndexCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: AuraColors.glassLight,
+                  color: SkyeColors.glassLight,
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
-                    color: AuraColors.glassBorder,
+                    color: SkyeColors.glassBorder,
                     width: 1,
                   ),
                 ),
@@ -152,8 +152,8 @@ class UVIndexCard extends StatelessWidget {
                         isGoldenHour
                             ? 'Golden hour - Perfect for photography!'
                             : 'Peak sun hours - Extra caution needed',
-                        style: AuraTypography.caption.copyWith(
-                          color: AuraColors.textSecondary,
+                        style: SkyeTypography.caption.copyWith(
+                          color: SkyeColors.textSecondary,
                           fontSize: 12,
                         ),
                       ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../theme/aura_colors.dart';
-import '../theme/aura_typography.dart';
+import '../theme/skye_colors.dart';
+import '../theme/skye_typography.dart';
 import 'glass_card.dart';
 
 /// Interactive settings tile with glassmorphic design
@@ -33,12 +33,12 @@ class SettingsTile extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: (iconColor ?? AuraColors.skyBlue).withOpacity(0.15),
+              color: (iconColor ?? SkyeColors.skyBlue).withOpacity(0.15),
               borderRadius: BorderRadius.circular(14),
             ),
             child: Icon(
               icon,
-              color: iconColor ?? AuraColors.skyBlue,
+              color: iconColor ?? SkyeColors.skyBlue,
               size: 24,
             ),
           ),
@@ -49,13 +49,13 @@ class SettingsTile extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: AuraTypography.subtitle,
+                  style: SkyeTypography.subtitle,
                 ),
                 if (subtitle != null) ...[
                   const SizedBox(height: 4),
                   Text(
                     subtitle!,
-                    style: AuraTypography.bodySmall,
+                    style: SkyeTypography.bodySmall,
                   ),
                 ],
               ],
@@ -67,7 +67,7 @@ class SettingsTile extends StatelessWidget {
           ] else if (onTap != null)
             Icon(
               Icons.chevron_right_rounded,
-              color: AuraColors.textMuted,
+              color: SkyeColors.textMuted,
               size: 24,
             ),
         ],

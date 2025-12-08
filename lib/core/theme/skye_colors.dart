@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-/// Aura Design System - Aurora Glass Palette
+/// Skye Design System - Aurora Glass Palette
 /// A premium glassmorphism color system for immersive weather experiences
-class AuraColors {
+class SkyeColors {
   // Base Backgrounds
   static const Color deepSpace = Color(0xFF020617);
   static const Color surfaceDark = Color(0xFF0B1220);

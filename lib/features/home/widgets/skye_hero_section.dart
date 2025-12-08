@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:animate_do/animate_do.dart';
-import '../../../core/theme/aura_colors.dart';
-import '../../../core/theme/aura_typography.dart';
-import '../../../core/utils/aura_weather_utils.dart';
+import '../../../core/theme/skye_colors.dart';
+import '../../../core/theme/skye_typography.dart';
+import '../../../core/utils/skye_weather_utils.dart';
 import '../../../core/utils/date_utils.dart';
 import '../../../core/utils/weather_formatters.dart';
 import '../../../core/widgets/weather_animation.dart';
 import '../../../data/models/weather_model.dart';
 import '../../settings/viewmodels/settings_viewmodel.dart';
 
-class AuraHeroSection extends ConsumerWidget {
+class SkyeHeroSection extends ConsumerWidget {
   final WeatherModel weather;
   final VoidCallback? onForecastTap;
 
-  const AuraHeroSection({
+  const SkyeHeroSection({
     super.key,
     required this.weather,
     this.onForecastTap,
@@ -24,7 +24,7 @@ class AuraHeroSection extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.of(context).size;
     final settings = ref.watch(settingsProvider);
-    final gradient = AuraWeatherUtils.getWeatherGradient(
+    final gradient = SkyeWeatherUtils.getWeatherGradient(
       weather.getWeatherCondition(),
     );
 
@@ -53,21 +53,21 @@ class AuraHeroSection extends ConsumerWidget {
                           children: [
                             Icon(
                               Icons.location_on_rounded,
-                              color: AuraColors.textPrimary.withOpacity(0.9),
+                              color: SkyeColors.textPrimary.withOpacity(0.9),
                               size: 20,
                             ),
                             const SizedBox(width: 6),
                             Text(
                               weather.cityName,
-                              style: AuraTypography.headline,
+                              style: SkyeTypography.headline,
                             ),
                           ],
                         ),
                         const SizedBox(height: 8),
                         Text(
                           AppDateUtils.formatDayMonth(DateTime.now()),
-                          style: AuraTypography.body.copyWith(
-                            color: AuraColors.textSecondary.withOpacity(0.8),
+                          style: SkyeTypography.body.copyWith(
+                            color: SkyeColors.textSecondary.withOpacity(0.8),
                           ),
                         ),
                       ],
@@ -99,7 +99,7 @@ class AuraHeroSection extends ConsumerWidget {
                       builder: (context, value, child) {
                         return Text(
                           value.formatTemperature(settings),
-                          style: AuraTypography.display,
+                          style: SkyeTypography.display,
                         );
                       },
                     ),
@@ -112,8 +112,8 @@ class AuraHeroSection extends ConsumerWidget {
                     duration: const Duration(milliseconds: 600),
                     delay: const Duration(milliseconds: 400),
                     child: Text(
-                      AuraWeatherUtils.getConditionText(weather.description),
-                      style: AuraTypography.condition.copyWith(
+                      SkyeWeatherUtils.getConditionText(weather.description),
+                      style: SkyeTypography.condition.copyWith(
                         letterSpacing: 2,
                         fontSize: 16,
                       ),
@@ -167,7 +167,7 @@ class AuraHeroSection extends ConsumerWidget {
           _buildDivider(),
           _buildQuickStat(
             'Humidity',
-            AuraWeatherUtils.formatHumidity(weather.humidity),
+            SkyeWeatherUtils.formatHumidity(weather.humidity),
           ),
           _buildDivider(),
           _buildQuickStat(
@@ -196,15 +196,15 @@ class AuraHeroSection extends ConsumerWidget {
           children: [
             Text(
               '7-Day Forecast',
-              style: AuraTypography.label.copyWith(
-                color: AuraColors.textPrimary,
+              style: SkyeTypography.label.copyWith(
+                color: SkyeColors.textPrimary,
                 fontWeight: FontWeight.w600,
               ),
             ),
             const SizedBox(width: 8),
             Icon(
               Icons.keyboard_arrow_up_rounded,
-              color: AuraColors.textPrimary,
+              color: SkyeColors.textPrimary,
               size: 20,
             ),
           ],
@@ -218,16 +218,16 @@ class AuraHeroSection extends ConsumerWidget {
       children: [
         Text(
           value,
-          style: AuraTypography.subtitle.copyWith(
-            color: AuraColors.textPrimary,
+          style: SkyeTypography.subtitle.copyWith(
+            color: SkyeColors.textPrimary,
             fontWeight: FontWeight.w700,
           ),
         ),
         const SizedBox(height: 6),
         Text(
           label,
-          style: AuraTypography.caption.copyWith(
-            color: AuraColors.textSecondary.withOpacity(0.85),
+          style: SkyeTypography.caption.copyWith(
+            color: SkyeColors.textSecondary.withOpacity(0.85),
             letterSpacing: 0.8,
           ),
         ),

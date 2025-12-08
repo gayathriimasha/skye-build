@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../core/theme/aura_colors.dart';
+import '../../../core/theme/skye_colors.dart';
 
 class CustomNameDialog extends StatefulWidget {
   final String locationName;
@@ -33,7 +33,7 @@ class _CustomNameDialogState extends State<CustomNameDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: AuraColors.surfaceDark,
+      backgroundColor: SkyeColors.surfaceDark,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(24),
       ),
@@ -47,7 +47,7 @@ class _CustomNameDialogState extends State<CustomNameDialog> {
               children: [
                 Icon(
                   Icons.edit_note_rounded,
-                  color: AuraColors.skyBlue,
+                  color: SkyeColors.skyBlue,
                   size: 28,
                 ),
                 const SizedBox(width: 12),
@@ -55,7 +55,7 @@ class _CustomNameDialogState extends State<CustomNameDialog> {
                   child: Text(
                     'Custom Name',
                     style: TextStyle(
-                      color: AuraColors.textPrimary,
+                      color: SkyeColors.textPrimary,
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
                     ),
@@ -67,7 +67,7 @@ class _CustomNameDialogState extends State<CustomNameDialog> {
             Text(
               'Give this location a custom name',
               style: TextStyle(
-                color: AuraColors.textSecondary,
+                color: SkyeColors.textSecondary,
                 fontSize: 14,
               ),
             ),
@@ -83,14 +83,14 @@ class _CustomNameDialogState extends State<CustomNameDialog> {
                   Icon(
                     Icons.location_on_rounded,
                     size: 16,
-                    color: AuraColors.textSecondary,
+                    color: SkyeColors.textSecondary,
                   ),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
                       widget.locationName,
                       style: TextStyle(
-                        color: AuraColors.textSecondary,
+                        color: SkyeColors.textSecondary,
                         fontSize: 13,
                       ),
                       maxLines: 1,
@@ -104,11 +104,11 @@ class _CustomNameDialogState extends State<CustomNameDialog> {
             TextField(
               controller: _controller,
               autofocus: true,
-              style: TextStyle(color: AuraColors.textPrimary),
+              style: TextStyle(color: SkyeColors.textPrimary),
               decoration: InputDecoration(
                 hintText: 'e.g., Home, Work, Beach House...',
                 hintStyle: TextStyle(
-                  color: AuraColors.textSecondary.withOpacity(0.5),
+                  color: SkyeColors.textSecondary.withOpacity(0.5),
                 ),
                 filled: true,
                 fillColor: Colors.white.withOpacity(0.05),
@@ -137,7 +137,7 @@ class _CustomNameDialogState extends State<CustomNameDialog> {
                     child: Text(
                       'Skip',
                       style: TextStyle(
-                        color: AuraColors.textSecondary,
+                        color: SkyeColors.textSecondary,
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
                       ),
@@ -154,7 +154,7 @@ class _CustomNameDialogState extends State<CustomNameDialog> {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AuraColors.skyBlue,
+                      backgroundColor: SkyeColors.skyBlue,
                       padding: const EdgeInsets.symmetric(vertical: 14),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),

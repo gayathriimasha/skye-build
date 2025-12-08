@@ -1,15 +1,15 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import '../theme/aura_colors.dart';
-import '../theme/aura_typography.dart';
+import '../theme/skye_colors.dart';
+import '../theme/skye_typography.dart';
 
 /// Floating glassmorphic search bar
-class AuraSearchBar extends StatelessWidget {
+class SkyeSearchBar extends StatelessWidget {
   final String hint;
   final VoidCallback? onTap;
   final bool enabled;
 
-  const AuraSearchBar({
+  const SkyeSearchBar({
     super.key,
     this.hint = 'Search city or location',
     this.onTap,
@@ -34,15 +34,15 @@ class AuraSearchBar extends StatelessWidget {
               children: [
                 Icon(
                   Icons.search_rounded,
-                  color: AuraColors.textPrimary.withOpacity(0.9),
+                  color: SkyeColors.textPrimary.withOpacity(0.9),
                   size: 22,
                 ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
                     hint,
-                    style: AuraTypography.body.copyWith(
-                      color: AuraColors.textPrimary.withOpacity(0.85),
+                    style: SkyeTypography.body.copyWith(
+                      color: SkyeColors.textPrimary.withOpacity(0.85),
                       fontWeight: FontWeight.w500,
                     ),
                     overflow: TextOverflow.ellipsis,

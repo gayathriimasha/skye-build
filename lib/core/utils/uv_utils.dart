@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../theme/aura_colors.dart';
+import '../theme/skye_colors.dart';
 import '../../data/models/uv_data_model.dart';
 
 class UVUtils {
@@ -25,7 +25,7 @@ class UVUtils {
       case UVSafetyLevel.low:
         return const Color(0xFF4ADE80); // Green
       case UVSafetyLevel.moderate:
-        return AuraColors.sunYellow; // Yellow
+        return SkyeColors.sunYellow; // Yellow
       case UVSafetyLevel.high:
         return const Color(0xFFFB923C); // Orange
       case UVSafetyLevel.veryHigh:
@@ -44,7 +44,7 @@ class UVUtils {
         );
       case UVSafetyLevel.moderate:
         return LinearGradient(
-          colors: [AuraColors.sunYellow, const Color(0xFFFBBF24)],
+          colors: [SkyeColors.sunYellow, const Color(0xFFFBBF24)],
         );
       case UVSafetyLevel.high:
         return const LinearGradient(

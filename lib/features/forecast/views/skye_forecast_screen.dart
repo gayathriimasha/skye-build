@@ -3,20 +3,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:animate_do/animate_do.dart';
 import '../viewmodels/forecast_viewmodel.dart';
 import '../../home/viewmodels/home_viewmodel.dart';
-import '../../../core/theme/aura_colors.dart';
-import '../../../core/theme/aura_typography.dart';
-import '../../../core/utils/aura_weather_utils.dart';
+import '../../../core/theme/skye_colors.dart';
+import '../../../core/theme/skye_typography.dart';
+import '../../../core/utils/skye_weather_utils.dart';
 import '../../../core/utils/date_utils.dart';
 
-class AuraForecastScreen extends ConsumerStatefulWidget {
-  const AuraForecastScreen({super.key});
+class SkyeForecastScreen extends ConsumerStatefulWidget {
+  const SkyeForecastScreen({super.key});
 
   @override
-  ConsumerState<AuraForecastScreen> createState() =>
-      _AuraForecastScreenState();
+  ConsumerState<SkyeForecastScreen> createState() =>
+      _SkyeForecastScreenState();
 }
 
-class _AuraForecastScreenState extends ConsumerState<AuraForecastScreen> {
+class _SkyeForecastScreenState extends ConsumerState<SkyeForecastScreen> {
   bool _showHourly = true;
 
   @override
@@ -41,7 +41,7 @@ class _AuraForecastScreenState extends ConsumerState<AuraForecastScreen> {
     return Container(
       height: size.height * 0.85,
       decoration: BoxDecoration(
-        color: AuraColors.deepSpace,
+        color: SkyeColors.deepSpace,
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(32),
           topRight: Radius.circular(32),
@@ -55,7 +55,7 @@ class _AuraForecastScreenState extends ConsumerState<AuraForecastScreen> {
             width: 40,
             height: 4,
             decoration: BoxDecoration(
-              color: AuraColors.textMuted,
+              color: SkyeColors.textMuted,
               borderRadius: BorderRadius.circular(2),
             ),
           ),
@@ -69,13 +69,13 @@ class _AuraForecastScreenState extends ConsumerState<AuraForecastScreen> {
               children: [
                 Text(
                   'Forecast',
-                  style: AuraTypography.headline,
+                  style: SkyeTypography.headline,
                 ),
                 IconButton(
                   onPressed: () => Navigator.pop(context),
                   icon: Icon(
                     Icons.close_rounded,
-                    color: AuraColors.textPrimary,
+                    color: SkyeColors.textPrimary,
                   ),
                 ),
               ],
@@ -90,7 +90,7 @@ class _AuraForecastScreenState extends ConsumerState<AuraForecastScreen> {
             child: Container(
               padding: const EdgeInsets.all(4),
               decoration: BoxDecoration(
-                color: AuraColors.surfaceDark,
+                color: SkyeColors.surfaceDark,
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Row(
@@ -121,7 +121,7 @@ class _AuraForecastScreenState extends ConsumerState<AuraForecastScreen> {
             child: forecastState.isLoading
                 ? Center(
                     child: CircularProgressIndicator(
-                      color: AuraColors.skyBlue,
+                      color: SkyeColors.skyBlue,
                     ),
                   )
                 : forecastState.error != null
@@ -144,14 +144,14 @@ class _AuraForecastScreenState extends ConsumerState<AuraForecastScreen> {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(vertical: 12),
         decoration: BoxDecoration(
-          color: isActive ? AuraColors.skyBlue : Colors.transparent,
+          color: isActive ? SkyeColors.skyBlue : Colors.transparent,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Text(
           label,
           textAlign: TextAlign.center,
-          style: AuraTypography.subtitle.copyWith(
-            color: isActive ? AuraColors.deepSpace : AuraColors.textTertiary,
+          style: SkyeTypography.subtitle.copyWith(
+            color: isActive ? SkyeColors.deepSpace : SkyeColors.textTertiary,
             fontWeight: isActive ? FontWeight.w600 : FontWeight.w500,
           ),
         ),
@@ -172,7 +172,7 @@ class _AuraForecastScreenState extends ConsumerState<AuraForecastScreen> {
             margin: const EdgeInsets.only(bottom: 12),
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: AuraColors.glassLight,
+              color: SkyeColors.glassLight,
               borderRadius: BorderRadius.circular(20),
             ),
             child: Row(
@@ -181,16 +181,16 @@ class _AuraForecastScreenState extends ConsumerState<AuraForecastScreen> {
                   width: 60,
                   child: Text(
                     AppDateUtils.getHourFromTimestamp(hourly.dt),
-                    style: AuraTypography.subtitle,
+                    style: SkyeTypography.subtitle,
                   ),
                 ),
                 const SizedBox(width: 16),
                 Icon(
-                  AuraWeatherUtils.getIconFromCondition(
+                  SkyeWeatherUtils.getIconFromCondition(
                     hourly.condition,
                     iconCode: hourly.icon,
                   ),
-                  color: AuraWeatherUtils.getIconColor(
+                  color: SkyeWeatherUtils.getIconColor(
                     hourly.condition,
                     iconCode: hourly.icon,
                   ),
@@ -198,8 +198,8 @@ class _AuraForecastScreenState extends ConsumerState<AuraForecastScreen> {
                 ),
                 const Spacer(),
                 Text(
-                  AuraWeatherUtils.formatTemperature(hourly.temperature),
-                  style: AuraTypography.temperature.copyWith(
+                  SkyeWeatherUtils.formatTemperature(hourly.temperature),
+                  style: SkyeTypography.temperature.copyWith(
                     fontSize: 28,
                   ),
                 ),
@@ -224,7 +224,7 @@ class _AuraForecastScreenState extends ConsumerState<AuraForecastScreen> {
             margin: const EdgeInsets.only(bottom: 12),
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: AuraColors.glassLight,
+              color: SkyeColors.glassLight,
               borderRadius: BorderRadius.circular(20),
             ),
             child: Row(
@@ -233,15 +233,15 @@ class _AuraForecastScreenState extends ConsumerState<AuraForecastScreen> {
                   width: 100,
                   child: Text(
                     daily.getDayName(),
-                    style: AuraTypography.subtitle,
+                    style: SkyeTypography.subtitle,
                   ),
                 ),
                 Icon(
-                  AuraWeatherUtils.getIconFromCondition(
+                  SkyeWeatherUtils.getIconFromCondition(
                     daily.condition,
                     iconCode: daily.icon,
                   ),
-                  color: AuraWeatherUtils.getIconColor(
+                  color: SkyeWeatherUtils.getIconColor(
                     daily.condition,
                     iconCode: daily.icon,
                   ),
@@ -249,26 +249,26 @@ class _AuraForecastScreenState extends ConsumerState<AuraForecastScreen> {
                 ),
                 const Spacer(),
                 Text(
-                  AuraWeatherUtils.formatTemperature(
+                  SkyeWeatherUtils.formatTemperature(
                     daily.minTemp,
                     showUnit: false,
                   ),
-                  style: AuraTypography.body.copyWith(
-                    color: AuraColors.textTertiary,
+                  style: SkyeTypography.body.copyWith(
+                    color: SkyeColors.textTertiary,
                     fontSize: 16,
                   ),
                 ),
                 const SizedBox(width: 8),
                 Text(
                   '/',
-                  style: AuraTypography.body.copyWith(
-                    color: AuraColors.textMuted,
+                  style: SkyeTypography.body.copyWith(
+                    color: SkyeColors.textMuted,
                   ),
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  AuraWeatherUtils.formatTemperature(daily.maxTemp),
-                  style: AuraTypography.temperature,
+                  SkyeWeatherUtils.formatTemperature(daily.maxTemp),
+                  style: SkyeTypography.temperature,
                 ),
               ],
             ),
@@ -288,12 +288,12 @@ class _AuraForecastScreenState extends ConsumerState<AuraForecastScreen> {
             Icon(
               Icons.error_outline_rounded,
               size: 48,
-              color: AuraColors.error,
+              color: SkyeColors.error,
             ),
             const SizedBox(height: 16),
             Text(
               error,
-              style: AuraTypography.body,
+              style: SkyeTypography.body,
               textAlign: TextAlign.center,
             ),
           ],
@@ -306,7 +306,7 @@ class _AuraForecastScreenState extends ConsumerState<AuraForecastScreen> {
     return Center(
       child: Text(
         'No forecast data available',
-        style: AuraTypography.body,
+        style: SkyeTypography.body,
       ),
     );
   }

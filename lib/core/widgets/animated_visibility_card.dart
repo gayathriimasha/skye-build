@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
-import '../theme/aura_colors.dart';
-import '../theme/aura_typography.dart';
+import '../theme/skye_colors.dart';
+import '../theme/skye_typography.dart';
 import 'glass_card.dart';
 
 /// Compact animated visibility card with fog/mist layers
@@ -42,7 +42,7 @@ class _AnimatedVisibilityCardState extends State<AnimatedVisibilityCard>
 
   @override
   Widget build(BuildContext context) {
-    final color = widget.accentColor ?? AuraColors.twilightPurple;
+    final color = widget.accentColor ?? SkyeColors.twilightPurple;
 
     return GlassCard(
       padding: const EdgeInsets.fromLTRB(22, 22, 22, 28),
@@ -53,17 +53,17 @@ class _AnimatedVisibilityCardState extends State<AnimatedVisibilityCard>
           // Value and label
           Text(
             widget.value,
-            style: AuraTypography.metricValue.copyWith(
+            style: SkyeTypography.metricValue.copyWith(
               fontSize: 22,
-              color: AuraColors.textPrimary,
+              color: SkyeColors.textPrimary,
             ),
           ),
           const SizedBox(height: 4),
           Text(
             'Visibility',
-            style: AuraTypography.metricLabel.copyWith(
+            style: SkyeTypography.metricLabel.copyWith(
               fontSize: 12,
-              color: AuraColors.textSecondary,
+              color: SkyeColors.textSecondary,
             ),
           ),
           const SizedBox(height: 20),

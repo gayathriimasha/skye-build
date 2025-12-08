@@ -1,28 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../viewmodels/home_viewmodel.dart';
-import '../widgets/aura_hero_section.dart';
-import '../widgets/aura_metrics_section.dart';
+import '../widgets/skye_hero_section.dart';
+import '../widgets/skye_metrics_section.dart';
 import '../widgets/hourly_forecast_strip.dart';
 import '../widgets/plant_care_alert.dart';
 import '../widgets/uv_index_card.dart';
-import '../../search/views/aura_search_screen.dart';
-import '../../forecast/views/aura_forecast_screen.dart';
-import '../../settings/views/aura_settings_screen.dart';
-import '../../alerts/views/aura_alerts_screen.dart';
+import '../../search/views/skye_search_screen.dart';
+import '../../forecast/views/skye_forecast_screen.dart';
+import '../../settings/views/skye_settings_screen.dart';
+import '../../alerts/views/skye_alerts_screen.dart';
 import '../../alerts/viewmodels/alerts_viewmodel.dart';
-import '../../../core/theme/aura_colors.dart';
-import '../../../core/widgets/aura_search_bar.dart';
+import '../../../core/theme/skye_colors.dart';
+import '../../../core/widgets/skye_search_bar.dart';
 import '../../../core/widgets/weather_particles.dart';
 
-class AuraHomeScreen extends ConsumerStatefulWidget {
-  const AuraHomeScreen({super.key});
+class SkyeHomeScreen extends ConsumerStatefulWidget {
+  const SkyeHomeScreen({super.key});
 
   @override
-  ConsumerState<AuraHomeScreen> createState() => _AuraHomeScreenState();
+  ConsumerState<SkyeHomeScreen> createState() => _SkyeHomeScreenState();
 }
 
-class _AuraHomeScreenState extends ConsumerState<AuraHomeScreen> {
+class _SkyeHomeScreenState extends ConsumerState<SkyeHomeScreen> {
   @override
   void initState() {
     super.initState();
@@ -44,7 +44,7 @@ class _AuraHomeScreenState extends ConsumerState<AuraHomeScreen> {
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            const AuraSearchScreen(),
+            const SkyeSearchScreen(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           const begin = Offset(0.0, 1.0);
           const end = Offset.zero;
@@ -67,7 +67,7 @@ class _AuraHomeScreenState extends ConsumerState<AuraHomeScreen> {
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (context) => const AuraForecastScreen(),
+      builder: (context) => const SkyeForecastScreen(),
     );
   }
 
@@ -76,7 +76,7 @@ class _AuraHomeScreenState extends ConsumerState<AuraHomeScreen> {
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            const AuraSettingsScreen(),
+            const SkyeSettingsScreen(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return FadeTransition(
             opacity: animation,
@@ -93,7 +93,7 @@ class _AuraHomeScreenState extends ConsumerState<AuraHomeScreen> {
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            const AuraAlertsScreen(),
+            const SkyeAlertsScreen(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return FadeTransition(
             opacity: animation,
@@ -111,12 +111,12 @@ class _AuraHomeScreenState extends ConsumerState<AuraHomeScreen> {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: AuraColors.deepSpace,
+      backgroundColor: SkyeColors.deepSpace,
       extendBodyBehindAppBar: true,
       body: homeState.isLoading
           ? Center(
               child: CircularProgressIndicator(
-                color: AuraColors.skyBlue,
+                color: SkyeColors.skyBlue,
               ),
             )
           : homeState.error != null
@@ -138,14 +138,14 @@ class _AuraHomeScreenState extends ConsumerState<AuraHomeScreen> {
                           onRefresh: () async {
                             await ref.read(homeProvider.notifier).refreshWeather();
                           },
-                          color: AuraColors.skyBlue,
-                          backgroundColor: AuraColors.surfaceDark,
+                          color: SkyeColors.skyBlue,
+                          backgroundColor: SkyeColors.surfaceDark,
                           child: SingleChildScrollView(
                             physics: const AlwaysScrollableScrollPhysics(),
                             child: Column(
                               children: [
                                 // Hero weather section
-                                AuraHeroSection(
+                                SkyeHeroSection(
                                   weather: homeState.weather!,
                                   onForecastTap: _openForecast,
                                 ),
@@ -163,7 +163,7 @@ class _AuraHomeScreenState extends ConsumerState<AuraHomeScreen> {
                                 const SizedBox(height: 8),
 
                                 // Metrics section
-                                AuraMetricsSection(
+                                SkyeMetricsSection(
                                   weather: homeState.weather!,
                                 ),
 
@@ -200,7 +200,7 @@ class _AuraHomeScreenState extends ConsumerState<AuraHomeScreen> {
                           child: Row(
                             children: [
                               Expanded(
-                                child: AuraSearchBar(
+                                child: SkyeSearchBar(
                                   onTap: _openSearch,
                                 ),
                               ),
@@ -233,7 +233,7 @@ class _AuraHomeScreenState extends ConsumerState<AuraHomeScreen> {
         ),
         child: Icon(
           icon,
-          color: AuraColors.textPrimary,
+          color: SkyeColors.textPrimary,
           size: 22,
         ),
       ),
@@ -266,7 +266,7 @@ class _AuraHomeScreenState extends ConsumerState<AuraHomeScreen> {
             ),
             child: Icon(
               Icons.warning_rounded,
-              color: hasAlerts ? const Color(0xFFEF4444) : AuraColors.textPrimary,
+              color: hasAlerts ? const Color(0xFFEF4444) : SkyeColors.textPrimary,
               size: 22,
             ),
           ),
@@ -280,7 +280,7 @@ class _AuraHomeScreenState extends ConsumerState<AuraHomeScreen> {
                   color: const Color(0xFFEF4444),
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: AuraColors.deepSpace,
+                    color: SkyeColors.deepSpace,
                     width: 2,
                   ),
                 ),
@@ -316,7 +316,7 @@ class _AuraHomeScreenState extends ConsumerState<AuraHomeScreen> {
             Icon(
               Icons.error_outline_rounded,
               size: 64,
-              color: AuraColors.error,
+              color: SkyeColors.error,
             ),
             const SizedBox(height: 24),
             Text(

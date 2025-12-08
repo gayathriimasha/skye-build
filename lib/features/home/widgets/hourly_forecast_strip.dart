@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
-import '../../../core/theme/aura_colors.dart';
-import '../../../core/theme/aura_typography.dart';
+import '../../../core/theme/skye_colors.dart';
+import '../../../core/theme/skye_typography.dart';
 import '../../../core/widgets/glass_card.dart';
 import '../../../core/widgets/hourly_temp_trend_painter.dart';
 import '../../../data/models/forecast_model.dart';
@@ -39,8 +39,8 @@ class HourlyForecastStrip extends StatelessWidget {
               children: [
                 Text(
                   'Hourly Forecast',
-                  style: AuraTypography.bodySmall.copyWith(
-                    color: AuraColors.textSecondary,
+                  style: SkyeTypography.bodySmall.copyWith(
+                    color: SkyeColors.textSecondary,
                     fontWeight: FontWeight.w600,
                     fontSize: 12,
                     letterSpacing: 0.5,
@@ -118,8 +118,8 @@ class _HourlyForecastGrid extends StatelessWidget {
                 child: Center(
                   child: Text(
                     _formatTime(h.dt),
-                    style: AuraTypography.caption.copyWith(
-                      color: AuraColors.textSecondary.withOpacity(0.8),
+                    style: SkyeTypography.caption.copyWith(
+                      color: SkyeColors.textSecondary.withOpacity(0.8),
                       fontSize: 11,
                       fontWeight: FontWeight.w500,
                       letterSpacing: 0.3,
@@ -146,13 +146,13 @@ class _HourlyForecastGrid extends StatelessWidget {
                     Icon(
                       _mapConditionToIcon(h.condition, h.icon),
                       size: 24,
-                      color: AuraColors.textPrimary.withOpacity(0.9),
+                      color: SkyeColors.textPrimary.withOpacity(0.9),
                     ),
                     const SizedBox(height: 6),
                     Text(
                       '${h.temperature.round()}°',
-                      style: AuraTypography.bodySmall.copyWith(
-                        color: AuraColors.textPrimary,
+                      style: SkyeTypography.bodySmall.copyWith(
+                        color: SkyeColors.textPrimary,
                         fontWeight: FontWeight.w600,
                         fontSize: 15,
                       ),
@@ -173,10 +173,10 @@ class _HourlyForecastGrid extends StatelessWidget {
           child: CustomPaint(
             painter: HourlyTempTrendPainter(
               temperatures: temps,
-              lineColor: AuraColors.skyBlue.withOpacity(0.8),
+              lineColor: SkyeColors.skyBlue.withOpacity(0.8),
               dotColor: Colors.white,
-              gradientStartColor: AuraColors.skyBlue,
-              gradientEndColor: AuraColors.twilightPurple,
+              gradientStartColor: SkyeColors.skyBlue,
+              gradientEndColor: SkyeColors.twilightPurple,
             ),
           ),
         ),
@@ -196,13 +196,13 @@ class _HourlyForecastGrid extends StatelessWidget {
                     Icon(
                       Icons.water_drop,
                       size: 12,
-                      color: AuraColors.skyBlue.withOpacity(0.7),
+                      color: SkyeColors.skyBlue.withOpacity(0.7),
                     ),
                     const SizedBox(width: 3),
                     Text(
                       '${(h.pop * 100).round()}%',
-                      style: AuraTypography.caption.copyWith(
-                        color: AuraColors.textSecondary.withOpacity(0.75),
+                      style: SkyeTypography.caption.copyWith(
+                        color: SkyeColors.textSecondary.withOpacity(0.75),
                         fontSize: 10,
                         fontWeight: FontWeight.w500,
                         letterSpacing: 0.3,

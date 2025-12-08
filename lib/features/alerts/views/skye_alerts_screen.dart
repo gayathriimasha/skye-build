@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../core/theme/aura_colors.dart';
-import '../../../core/theme/aura_typography.dart';
+import '../../../core/theme/skye_colors.dart';
+import '../../../core/theme/skye_typography.dart';
 import '../../../core/widgets/glass_card.dart';
 import '../../../data/models/weather_alert_model.dart';
 import '../viewmodels/alerts_viewmodel.dart';
 import '../../home/viewmodels/home_viewmodel.dart';
 import '../../user_alerts/views/user_alerts_screen.dart';
 
-class AuraAlertsScreen extends ConsumerStatefulWidget {
-  const AuraAlertsScreen({super.key});
+class SkyeAlertsScreen extends ConsumerStatefulWidget {
+  const SkyeAlertsScreen({super.key});
 
   @override
-  ConsumerState<AuraAlertsScreen> createState() => _AuraAlertsScreenState();
+  ConsumerState<SkyeAlertsScreen> createState() => _SkyeAlertsScreenState();
 }
 
-class _AuraAlertsScreenState extends ConsumerState<AuraAlertsScreen> {
+class _SkyeAlertsScreenState extends ConsumerState<SkyeAlertsScreen> {
   @override
   void initState() {
     super.initState();
@@ -40,16 +40,16 @@ class _AuraAlertsScreenState extends ConsumerState<AuraAlertsScreen> {
     final homeState = ref.watch(homeProvider);
 
     return Scaffold(
-      backgroundColor: AuraColors.deepSpace,
+      backgroundColor: SkyeColors.deepSpace,
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              AuraColors.deepSpace,
-              AuraColors.surfaceDark,
-              AuraColors.deepSpace,
+              SkyeColors.deepSpace,
+              SkyeColors.surfaceDark,
+              SkyeColors.deepSpace,
             ],
           ),
         ),
@@ -81,14 +81,14 @@ class _AuraAlertsScreenState extends ConsumerState<AuraAlertsScreen> {
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
-                          AuraColors.skyBlue,
+                          SkyeColors.skyBlue,
                           const Color.fromARGB(255, 54, 122, 185),
                         ],
                       ),
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(
-                          color: AuraColors.skyBlue.withOpacity(0.4),
+                          color: SkyeColors.skyBlue.withOpacity(0.4),
                           blurRadius: 16,
                           offset: const Offset(0, 6),
                         ),
@@ -105,7 +105,7 @@ class _AuraAlertsScreenState extends ConsumerState<AuraAlertsScreen> {
                         const SizedBox(width: 8),
                         Text(
                           'My Alerts',
-                          style: AuraTypography.body.copyWith(
+                          style: SkyeTypography.body.copyWith(
                             color: Colors.white,
                             fontWeight: FontWeight.w600,
                             fontSize: 15,
@@ -133,7 +133,7 @@ class _AuraAlertsScreenState extends ConsumerState<AuraAlertsScreen> {
             child: Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: AuraColors.glassLight,
+                color: SkyeColors.glassLight,
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(
                   color: Colors.white.withOpacity(0.1),
@@ -154,14 +154,14 @@ class _AuraAlertsScreenState extends ConsumerState<AuraAlertsScreen> {
               children: [
                 Text(
                   'Weather Alerts',
-                  style: AuraTypography.headline.copyWith(
+                  style: SkyeTypography.headline.copyWith(
                     color: Colors.white,
                   ),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   ref.watch(homeProvider).weather?.cityName ?? 'Your Location',
-                  style: AuraTypography.body.copyWith(
+                  style: SkyeTypography.body.copyWith(
                     color: Colors.white.withOpacity(0.6),
                   ),
                 ),
@@ -180,12 +180,12 @@ class _AuraAlertsScreenState extends ConsumerState<AuraAlertsScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CircularProgressIndicator(
-              color: AuraColors.skyBlue,
+              color: SkyeColors.skyBlue,
             ),
             const SizedBox(height: 16),
             Text(
               'Loading alerts...',
-              style: AuraTypography.body.copyWith(
+              style: SkyeTypography.body.copyWith(
                 color: Colors.white.withOpacity(0.6),
               ),
             ),
@@ -207,8 +207,8 @@ class _AuraAlertsScreenState extends ConsumerState<AuraAlertsScreen> {
               );
         }
       },
-      backgroundColor: AuraColors.surfaceDark,
-      color: AuraColors.skyBlue,
+      backgroundColor: SkyeColors.surfaceDark,
+      color: SkyeColors.skyBlue,
       child: ListView.builder(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         itemCount: alertsState.sortedAlerts.length + alertsState.userAlerts.length,
@@ -234,21 +234,21 @@ class _AuraAlertsScreenState extends ConsumerState<AuraAlertsScreen> {
               shape: BoxShape.circle,
               gradient: LinearGradient(
                 colors: [
-                  AuraColors.skyBlue.withOpacity(0.2),
-                  AuraColors.twilightPurple.withOpacity(0.2),
+                  SkyeColors.skyBlue.withOpacity(0.2),
+                  SkyeColors.twilightPurple.withOpacity(0.2),
                 ],
               ),
             ),
             child: Icon(
               Icons.check_circle_outline_rounded,
               size: 80,
-              color: AuraColors.skyBlue,
+              color: SkyeColors.skyBlue,
             ),
           ),
           const SizedBox(height: 24),
           Text(
             'No Active Alerts',
-            style: AuraTypography.headline.copyWith(
+            style: SkyeTypography.headline.copyWith(
               color: Colors.white,
             ),
           ),
@@ -258,7 +258,7 @@ class _AuraAlertsScreenState extends ConsumerState<AuraAlertsScreen> {
             child: Text(
               'There are currently no weather alerts for your location. We\'ll notify you if conditions change.',
               textAlign: TextAlign.center,
-              style: AuraTypography.body.copyWith(
+              style: SkyeTypography.body.copyWith(
                 color: Colors.white.withOpacity(0.6),
               ),
             ),
@@ -297,7 +297,7 @@ class _AuraAlertsScreenState extends ConsumerState<AuraAlertsScreen> {
                 Expanded(
                   child: Text(
                     alert.event,
-                    style: AuraTypography.title.copyWith(
+                    style: SkyeTypography.title.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.w600,
                     ),
@@ -316,7 +316,7 @@ class _AuraAlertsScreenState extends ConsumerState<AuraAlertsScreen> {
                   ),
                   child: Text(
                     severityText,
-                    style: AuraTypography.body.copyWith(
+                    style: SkyeTypography.body.copyWith(
                       color: severityColor,
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
@@ -329,7 +329,7 @@ class _AuraAlertsScreenState extends ConsumerState<AuraAlertsScreen> {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: AuraColors.glassLight,
+                color: SkyeColors.glassLight,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
                   color: Colors.white.withOpacity(0.05),
@@ -338,7 +338,7 @@ class _AuraAlertsScreenState extends ConsumerState<AuraAlertsScreen> {
               ),
               child: Text(
                 alert.description,
-                style: AuraTypography.body.copyWith(
+                style: SkyeTypography.body.copyWith(
                   color: Colors.white.withOpacity(0.8),
                   height: 1.5,
                 ),
@@ -369,7 +369,7 @@ class _AuraAlertsScreenState extends ConsumerState<AuraAlertsScreen> {
                       const SizedBox(width: 8),
                       Text(
                         'ACTIVE NOW',
-                        style: AuraTypography.body.copyWith(
+                        style: SkyeTypography.body.copyWith(
                           color: severityColor,
                           fontWeight: FontWeight.w600,
                           fontSize: 12,
@@ -393,9 +393,9 @@ class _AuraAlertsScreenState extends ConsumerState<AuraAlertsScreen> {
       case AlertSeverity.severe:
         return const Color(0xFFF97316);
       case AlertSeverity.moderate:
-        return AuraColors.sunYellow;
+        return SkyeColors.sunYellow;
       case AlertSeverity.minor:
-        return AuraColors.skyBlue;
+        return SkyeColors.skyBlue;
     }
   }
 
@@ -428,14 +428,14 @@ class _AuraAlertsScreenState extends ConsumerState<AuraAlertsScreen> {
                   children: [
                     Icon(
                       Icons.notifications_active_rounded,
-                      color: AuraColors.skyBlue,
+                      color: SkyeColors.skyBlue,
                       size: 18,
                     ),
                     const SizedBox(width: 8),
                     Text(
                       'MY ALERT',
-                      style: AuraTypography.bodySmall.copyWith(
-                        color: AuraColors.textSecondary,
+                      style: SkyeTypography.bodySmall.copyWith(
+                        color: SkyeColors.textSecondary,
                         fontWeight: FontWeight.w600,
                         fontSize: 12,
                         letterSpacing: 0.5,
@@ -446,7 +446,7 @@ class _AuraAlertsScreenState extends ConsumerState<AuraAlertsScreen> {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
-                    color: AuraColors.skyBlue.withOpacity(0.15),
+                    color: SkyeColors.skyBlue.withOpacity(0.15),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Row(
@@ -454,14 +454,14 @@ class _AuraAlertsScreenState extends ConsumerState<AuraAlertsScreen> {
                     children: [
                       Icon(
                         Icons.check_circle_rounded,
-                        color: AuraColors.skyBlue,
+                        color: SkyeColors.skyBlue,
                         size: 12,
                       ),
                       const SizedBox(width: 4),
                       Text(
                         'ACTIVE',
-                        style: AuraTypography.caption.copyWith(
-                          color: AuraColors.skyBlue,
+                        style: SkyeTypography.caption.copyWith(
+                          color: SkyeColors.skyBlue,
                           fontSize: 10,
                           fontWeight: FontWeight.w600,
                           letterSpacing: 0.5,
@@ -475,8 +475,8 @@ class _AuraAlertsScreenState extends ConsumerState<AuraAlertsScreen> {
             const SizedBox(height: 14),
             Text(
               alert.name,
-              style: AuraTypography.title.copyWith(
-                color: AuraColors.textPrimary,
+              style: SkyeTypography.title.copyWith(
+                color: SkyeColors.textPrimary,
                 fontWeight: FontWeight.w600,
                 fontSize: 17,
               ),
@@ -487,13 +487,13 @@ class _AuraAlertsScreenState extends ConsumerState<AuraAlertsScreen> {
                 Icon(
                   Icons.thermostat_rounded,
                   size: 16,
-                  color: AuraColors.textSecondary,
+                  color: SkyeColors.textSecondary,
                 ),
                 const SizedBox(width: 6),
                 Text(
                   alert.conditionDescription,
-                  style: AuraTypography.body.copyWith(
-                    color: AuraColors.textSecondary,
+                  style: SkyeTypography.body.copyWith(
+                    color: SkyeColors.textSecondary,
                     fontSize: 14,
                   ),
                 ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
-import '../theme/aura_colors.dart';
-import '../theme/aura_typography.dart';
+import '../theme/skye_colors.dart';
+import '../theme/skye_typography.dart';
 import 'glass_card.dart';
 
 /// Large animated wind speed card with flowing wave lines
@@ -42,7 +42,7 @@ class _AnimatedWindCardState extends State<AnimatedWindCard>
 
   @override
   Widget build(BuildContext context) {
-    final color = widget.accentColor ?? AuraColors.skyBlue;
+    final color = widget.accentColor ?? SkyeColors.skyBlue;
 
     return GlassCard(
       padding: const EdgeInsets.all(24),
@@ -72,17 +72,17 @@ class _AnimatedWindCardState extends State<AnimatedWindCard>
                 children: [
                   Text(
                     widget.value,
-                    style: AuraTypography.metricValue.copyWith(
+                    style: SkyeTypography.metricValue.copyWith(
                       fontSize: 32,
-                      color: AuraColors.textPrimary,
+                      color: SkyeColors.textPrimary,
                     ),
                   ),
                   const SizedBox(height: 2),
                   Text(
                     'Wind Speed',
-                    style: AuraTypography.metricLabel.copyWith(
+                    style: SkyeTypography.metricLabel.copyWith(
                       fontSize: 13,
-                      color: AuraColors.textSecondary,
+                      color: SkyeColors.textSecondary,
                     ),
                   ),
                 ],

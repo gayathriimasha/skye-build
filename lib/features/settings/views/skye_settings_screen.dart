@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../core/theme/aura_colors.dart';
-import '../../../core/theme/aura_typography.dart';
+import '../../../core/theme/skye_colors.dart';
+import '../../../core/theme/skye_typography.dart';
 import '../../../core/widgets/settings_tile.dart';
 import '../viewmodels/settings_viewmodel.dart';
 import '../viewmodels/settings_state.dart';
 
-class AuraSettingsScreen extends ConsumerWidget {
-  const AuraSettingsScreen({super.key});
+class SkyeSettingsScreen extends ConsumerWidget {
+  const SkyeSettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final settingsState = ref.watch(settingsProvider);
 
     return Scaffold(
-      backgroundColor: AuraColors.deepSpace,
+      backgroundColor: SkyeColors.deepSpace,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
@@ -27,12 +27,12 @@ class AuraSettingsScreen extends ConsumerWidget {
                 onPressed: () => Navigator.pop(context),
                 icon: Icon(
                   Icons.arrow_back_rounded,
-                  color: AuraColors.textPrimary,
+                  color: SkyeColors.textPrimary,
                 ),
               ),
               title: Text(
                 'Settings',
-                style: AuraTypography.headline,
+                style: SkyeTypography.headline,
               ),
             ),
 
@@ -50,7 +50,7 @@ class AuraSettingsScreen extends ConsumerWidget {
                     title: 'Temperature',
                     subtitle: settingsState.temperatureUnitString,
                     onTap: () => _showTemperatureDialog(context, ref, settingsState),
-                    iconColor: AuraColors.skyBlue,
+                    iconColor: SkyeColors.skyBlue,
                   ),
                   const SizedBox(height: 12),
 
@@ -59,7 +59,7 @@ class AuraSettingsScreen extends ConsumerWidget {
                     title: 'Wind Speed',
                     subtitle: settingsState.windSpeedUnitString,
                     onTap: () => _showWindSpeedDialog(context, ref, settingsState),
-                    iconColor: AuraColors.skyBlue,
+                    iconColor: SkyeColors.skyBlue,
                   ),
                   const SizedBox(height: 12),
 
@@ -68,7 +68,7 @@ class AuraSettingsScreen extends ConsumerWidget {
                     title: 'Time Format',
                     subtitle: settingsState.timeFormatString,
                     onTap: () => _showTimeFormatDialog(context, ref, settingsState),
-                    iconColor: AuraColors.skyBlue,
+                    iconColor: SkyeColors.skyBlue,
                   ),
 
                   const SizedBox(height: 32),
@@ -81,13 +81,13 @@ class AuraSettingsScreen extends ConsumerWidget {
                     icon: Icons.animation_rounded,
                     title: 'Weather Animations',
                     subtitle: settingsState.animationsEnabled ? 'Enabled' : 'Disabled',
-                    iconColor: AuraColors.twilightPurple,
+                    iconColor: SkyeColors.twilightPurple,
                     trailing: Switch(
                       value: settingsState.animationsEnabled,
                       onChanged: (value) {
                         ref.read(settingsProvider.notifier).setAnimationsEnabled(value);
                       },
-                      activeTrackColor: AuraColors.skyBlue,
+                      activeTrackColor: SkyeColors.skyBlue,
                     ),
                   ),
 
@@ -101,7 +101,7 @@ class AuraSettingsScreen extends ConsumerWidget {
                     icon: Icons.info_outline_rounded,
                     title: 'Version',
                     subtitle: '1.0.0 (Aura)',
-                    iconColor: AuraColors.twilightPurple,
+                    iconColor: SkyeColors.twilightPurple,
                   ),
                   const SizedBox(height: 12),
 
@@ -118,7 +118,7 @@ class AuraSettingsScreen extends ConsumerWidget {
   Widget _buildSectionHeader(String title) {
     return Text(
       title,
-      style: AuraTypography.title.copyWith(fontSize: 18),
+      style: SkyeTypography.title.copyWith(fontSize: 18),
     );
   }
 
@@ -181,13 +181,13 @@ class AuraSettingsScreen extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: AuraColors.surfaceDark,
+        backgroundColor: SkyeColors.surfaceDark,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
         ),
         title: Text(
           title,
-          style: AuraTypography.title,
+          style: SkyeTypography.title,
         ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
@@ -203,18 +203,18 @@ class AuraSettingsScreen extends ConsumerWidget {
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   color: isSelected
-                      ? AuraColors.skyBlue.withOpacity(0.25)
-                      : AuraColors.glassLight,
+                      ? SkyeColors.skyBlue.withOpacity(0.25)
+                      : SkyeColors.glassLight,
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Row(
                   children: [
                     Text(
                       option,
-                      style: AuraTypography.bodyLarge.copyWith(
+                      style: SkyeTypography.bodyLarge.copyWith(
                         color: isSelected
-                            ? AuraColors.skyBlue
-                            : AuraColors.textPrimary,
+                            ? SkyeColors.skyBlue
+                            : SkyeColors.textPrimary,
                         fontWeight:
                             isSelected ? FontWeight.w600 : FontWeight.w400,
                       ),
@@ -223,7 +223,7 @@ class AuraSettingsScreen extends ConsumerWidget {
                     if (isSelected)
                       Icon(
                         Icons.check_circle_rounded,
-                        color: AuraColors.skyBlue,
+                        color: SkyeColors.skyBlue,
                         size: 20,
                       ),
                   ],

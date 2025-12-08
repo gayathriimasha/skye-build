@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
-import '../../../core/theme/aura_colors.dart';
-import '../../../core/theme/aura_typography.dart';
+import '../../../core/theme/skye_colors.dart';
+import '../../../core/theme/skye_typography.dart';
 import '../../../core/widgets/glass_card.dart';
 
 class PlantCareAlert extends StatelessWidget {
@@ -35,8 +35,8 @@ class PlantCareAlert extends StatelessWidget {
               children: [
                 Text(
                   'Plant Care',
-                  style: AuraTypography.bodySmall.copyWith(
-                    color: AuraColors.textSecondary,
+                  style: SkyeTypography.bodySmall.copyWith(
+                    color: SkyeColors.textSecondary,
                     fontWeight: FontWeight.w600,
                     fontSize: 12,
                     letterSpacing: 0.5,
@@ -53,7 +53,7 @@ class PlantCareAlert extends StatelessWidget {
                   ),
                   child: Text(
                     alertData['severity'],
-                    style: AuraTypography.caption.copyWith(
+                    style: SkyeTypography.caption.copyWith(
                       color: alertData['severityColor'],
                       fontWeight: FontWeight.w600,
                       fontSize: 10,
@@ -89,7 +89,7 @@ class PlantCareAlert extends StatelessWidget {
                     children: [
                       Text(
                         alertData['title'],
-                        style: AuraTypography.subtitle.copyWith(
+                        style: SkyeTypography.subtitle.copyWith(
                           fontSize: 15,
                           fontWeight: FontWeight.w600,
                         ),
@@ -97,8 +97,8 @@ class PlantCareAlert extends StatelessWidget {
                       const SizedBox(height: 4),
                       Text(
                         alertData['message'],
-                        style: AuraTypography.bodySmall.copyWith(
-                          color: AuraColors.textSecondary,
+                        style: SkyeTypography.bodySmall.copyWith(
+                          color: SkyeColors.textSecondary,
                           fontSize: 13,
                           height: 1.4,
                         ),
@@ -115,10 +115,10 @@ class PlantCareAlert extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: AuraColors.glassLight,
+                  color: SkyeColors.glassLight,
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
-                    color: AuraColors.glassBorder,
+                    color: SkyeColors.glassBorder,
                     width: 1,
                   ),
                 ),
@@ -127,14 +127,14 @@ class PlantCareAlert extends StatelessWidget {
                     Icon(
                       Icons.tips_and_updates_rounded,
                       size: 16,
-                      color: AuraColors.sunYellow,
+                      color: SkyeColors.sunYellow,
                     ),
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
                         alertData['tips'],
-                        style: AuraTypography.caption.copyWith(
-                          color: AuraColors.textSecondary,
+                        style: SkyeTypography.caption.copyWith(
+                          color: SkyeColors.textSecondary,
                           fontSize: 12,
                         ),
                       ),
@@ -155,7 +155,7 @@ class PlantCareAlert extends StatelessWidget {
     if (temperature < 5) {
       return {
         'severity': 'URGENT',
-        'severityColor': AuraColors.error,
+        'severityColor': SkyeColors.error,
         'icon': Icons.ac_unit_rounded,
         'title': 'Frost Alert',
         'message': 'Bring outdoor plants inside tonight to prevent frost damage',
@@ -191,7 +191,7 @@ class PlantCareAlert extends StatelessWidget {
     if (humidity > 80) {
       return {
         'severity': 'INFO',
-        'severityColor': AuraColors.skyBlue,
+        'severityColor': SkyeColors.skyBlue,
         'icon': Icons.water_drop_rounded,
         'title': 'High Humidity',
         'message': 'Perfect for tropical plants! Watch succulents for mold',
@@ -215,7 +215,7 @@ class PlantCareAlert extends StatelessWidget {
     if (humidity >= 50 && humidity <= 70) {
       return {
         'severity': 'IDEAL',
-        'severityColor': AuraColors.success,
+        'severityColor': SkyeColors.success,
         'icon': Icons.eco_rounded,
         'title': 'Perfect Conditions',
         'message': 'Ideal humidity for most houseplants',
@@ -227,7 +227,7 @@ class PlantCareAlert extends StatelessWidget {
     if (temperature >= 18 && temperature <= 24) {
       return {
         'severity': 'GOOD',
-        'severityColor': AuraColors.success,
+        'severityColor': SkyeColors.success,
         'icon': Icons.spa_rounded,
         'title': 'Great Plant Weather',
         'message': 'Optimal temperature for plant growth',
@@ -239,7 +239,7 @@ class PlantCareAlert extends StatelessWidget {
     if (temperature < 15) {
       return {
         'severity': 'NOTICE',
-        'severityColor': AuraColors.skyBlue,
+        'severityColor': SkyeColors.skyBlue,
         'icon': Icons.thermostat_rounded,
         'title': 'Cool Temperature',
         'message': 'Reduce watering frequency for most plants',
@@ -250,7 +250,7 @@ class PlantCareAlert extends StatelessWidget {
     // Default - moderate conditions
     return {
       'severity': 'GOOD',
-      'severityColor': AuraColors.success,
+      'severityColor': SkyeColors.success,
       'icon': Icons.yard_rounded,
       'title': 'Good Plant Day',
       'message': 'Conditions are favorable for your plants',

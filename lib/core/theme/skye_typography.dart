@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'aura_colors.dart';
+import 'skye_colors.dart';
 
-/// Aura Design System - Typography Scale
+/// Skye Design System - Typography Scale
 /// Refined, modern typography with proper tracking and hierarchy
-class AuraTypography {
+class SkyeTypography {
   // Display - Hero Temperature
   static TextStyle display = GoogleFonts.inter(
     fontSize: 120,
     fontWeight: FontWeight.w200,
-    color: AuraColors.textPrimary,
+    color: SkyeColors.textPrimary,
     height: 1.0,
     letterSpacing: -6.0,
   );
@@ -18,7 +18,7 @@ class AuraTypography {
   static TextStyle displaySmall = GoogleFonts.inter(
     fontSize: 72,
     fontWeight: FontWeight.w300,
-    color: AuraColors.textPrimary,
+    color: SkyeColors.textPrimary,
     height: 1.0,
     letterSpacing: -3.0,
   );
@@ -27,7 +27,7 @@ class AuraTypography {
   static TextStyle headline = GoogleFonts.inter(
     fontSize: 28,
     fontWeight: FontWeight.w600,
-    color: AuraColors.textPrimary,
+    color: SkyeColors.textPrimary,
     height: 1.2,
     letterSpacing: -0.5,
   );
@@ -36,7 +36,7 @@ class AuraTypography {
   static TextStyle title = GoogleFonts.inter(
     fontSize: 20,
     fontWeight: FontWeight.w600,
-    color: AuraColors.textPrimary,
+    color: SkyeColors.textPrimary,
     height: 1.3,
     letterSpacing: -0.3,
   );
@@ -45,7 +45,7 @@ class AuraTypography {
   static TextStyle subtitle = GoogleFonts.inter(
     fontSize: 16,
     fontWeight: FontWeight.w500,
-    color: AuraColors.textSecondary,
+    color: SkyeColors.textSecondary,
     height: 1.4,
     letterSpacing: 0,
   );
@@ -54,7 +54,7 @@ class AuraTypography {
   static TextStyle bodyLarge = GoogleFonts.inter(
     fontSize: 16,
     fontWeight: FontWeight.w400,
-    color: AuraColors.textSecondary,
+    color: SkyeColors.textSecondary,
     height: 1.5,
     letterSpacing: 0,
   );
@@ -63,7 +63,7 @@ class AuraTypography {
   static TextStyle body = GoogleFonts.inter(
     fontSize: 14,
     fontWeight: FontWeight.w400,
-    color: AuraColors.textSecondary,
+    color: SkyeColors.textSecondary,
     height: 1.5,
     letterSpacing: 0,
   );
@@ -72,7 +72,7 @@ class AuraTypography {
   static TextStyle bodySmall = GoogleFonts.inter(
     fontSize: 13,
     fontWeight: FontWeight.w400,
-    color: AuraColors.textTertiary,
+    color: SkyeColors.textTertiary,
     height: 1.4,
     letterSpacing: 0,
   );
@@ -81,7 +81,7 @@ class AuraTypography {
   static TextStyle label = GoogleFonts.inter(
     fontSize: 12,
     fontWeight: FontWeight.w500,
-    color: AuraColors.textTertiary,
+    color: SkyeColors.textTertiary,
     height: 1.3,
     letterSpacing: 0.5,
   );
@@ -90,7 +90,7 @@ class AuraTypography {
   static TextStyle caption = GoogleFonts.inter(
     fontSize: 11,
     fontWeight: FontWeight.w400,
-    color: AuraColors.textMuted,
+    color: SkyeColors.textMuted,
     height: 1.3,
     letterSpacing: 0.3,
   );
@@ -99,7 +99,7 @@ class AuraTypography {
   static TextStyle metricValue = GoogleFonts.inter(
     fontSize: 32,
     fontWeight: FontWeight.w600,
-    color: AuraColors.textPrimary,
+    color: SkyeColors.textPrimary,
     height: 1.1,
     letterSpacing: -1.0,
   );
@@ -108,7 +108,7 @@ class AuraTypography {
   static TextStyle metricLabel = GoogleFonts.inter(
     fontSize: 12,
     fontWeight: FontWeight.w500,
-    color: AuraColors.textTertiary,
+    color: SkyeColors.textTertiary,
     height: 1.3,
     letterSpacing: 0.5,
   );
@@ -117,7 +117,7 @@ class AuraTypography {
   static TextStyle condition = GoogleFonts.inter(
     fontSize: 18,
     fontWeight: FontWeight.w500,
-    color: AuraColors.textSecondary,
+    color: SkyeColors.textSecondary,
     height: 1.3,
     letterSpacing: 0.5,
   );
@@ -126,7 +126,7 @@ class AuraTypography {
   static TextStyle temperature = GoogleFonts.inter(
     fontSize: 24,
     fontWeight: FontWeight.w600,
-    color: AuraColors.textPrimary,
+    color: SkyeColors.textPrimary,
     height: 1.2,
     letterSpacing: -0.5,
   );

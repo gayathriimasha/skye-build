@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'core/theme/aura_theme.dart';
-import 'features/home/views/aura_home_screen.dart';
+import 'core/theme/skye_theme.dart';
+import 'features/home/views/skye_home_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,19 +20,19 @@ void main() {
   // Enable edge-to-edge mode
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
-  runApp(const ProviderScope(child: AuraApp()));
+  runApp(const ProviderScope(child: SkyeApp()));
 }
 
-class AuraApp extends StatelessWidget {
-  const AuraApp({super.key});
+class SkyeApp extends StatelessWidget {
+  const SkyeApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Aura',
-      theme: AuraTheme.darkTheme,
+      title: 'Skye',
+      theme: SkyeTheme.darkTheme,
       debugShowCheckedModeBanner: false,
-      home: const AuraHomeScreen(),
+      home: const SkyeHomeScreen(),
     );
   }
 }

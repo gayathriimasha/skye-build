@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../data/models/user_alert_model.dart';
-import '../../../core/theme/aura_colors.dart';
-import '../../../core/theme/aura_typography.dart';
+import '../../../core/theme/skye_colors.dart';
+import '../../../core/theme/skye_typography.dart';
 import '../../../core/widgets/glass_card.dart';
 
 class UserAlertCard extends StatelessWidget {
@@ -49,8 +49,8 @@ class UserAlertCard extends StatelessWidget {
                   children: [
                     Text(
                       alert.name,
-                      style: AuraTypography.title.copyWith(
-                        color: AuraColors.textPrimary,
+                      style: SkyeTypography.title.copyWith(
+                        color: SkyeColors.textPrimary,
                         fontSize: 17,
                         fontWeight: FontWeight.w600,
                       ),
@@ -61,13 +61,13 @@ class UserAlertCard extends StatelessWidget {
                         Icon(
                           _getConditionIcon(),
                           size: 16,
-                          color: AuraColors.textSecondary,
+                          color: SkyeColors.textSecondary,
                         ),
                         const SizedBox(width: 6),
                         Text(
                           alert.conditionDescription,
-                          style: AuraTypography.body.copyWith(
-                            color: AuraColors.textSecondary,
+                          style: SkyeTypography.body.copyWith(
+                            color: SkyeColors.textSecondary,
                             fontSize: 14,
                           ),
                         ),
@@ -79,7 +79,7 @@ class UserAlertCard extends StatelessWidget {
               Switch(
                 value: alert.isEnabled,
                 onChanged: onToggle,
-                activeTrackColor: AuraColors.skyBlue,
+                activeTrackColor: SkyeColors.skyBlue,
               ),
             ],
           ),
@@ -99,7 +99,7 @@ class UserAlertCard extends StatelessWidget {
                         child: _buildInfoChip(
                           icon: Icons.check_circle_rounded,
                           label: 'Last: ${_formatDate(alert.lastTriggered!)}',
-                          color: AuraColors.skyBlue,
+                          color: SkyeColors.skyBlue,
                         ),
                       ),
                     ],
@@ -111,7 +111,7 @@ class UserAlertCard extends StatelessWidget {
                 icon: Icon(
                   Icons.edit_rounded,
                   size: 20,
-                  color: AuraColors.textSecondary,
+                  color: SkyeColors.textSecondary,
                 ),
                 onPressed: onEdit,
                 padding: EdgeInsets.zero,
@@ -122,7 +122,7 @@ class UserAlertCard extends StatelessWidget {
                 icon: Icon(
                   Icons.delete_outline_rounded,
                   size: 20,
-                  color: AuraColors.error,
+                  color: SkyeColors.error,
                 ),
                 onPressed: onDelete,
                 padding: EdgeInsets.zero,
@@ -143,7 +143,7 @@ class UserAlertCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       decoration: BoxDecoration(
-        color: (color ?? AuraColors.textSecondary).withOpacity(0.1),
+        color: (color ?? SkyeColors.textSecondary).withOpacity(0.1),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
@@ -152,14 +152,14 @@ class UserAlertCard extends StatelessWidget {
           Icon(
             icon,
             size: 14,
-            color: color ?? AuraColors.textSecondary,
+            color: color ?? SkyeColors.textSecondary,
           ),
           const SizedBox(width: 4),
           Flexible(
             child: Text(
               label,
               style: TextStyle(
-                color: color ?? AuraColors.textSecondary,
+                color: color ?? SkyeColors.textSecondary,
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
               ),

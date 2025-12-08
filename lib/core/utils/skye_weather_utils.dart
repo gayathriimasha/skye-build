@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
-import '../theme/aura_colors.dart';
+import '../theme/skye_colors.dart';
 import '../../data/models/weather_model.dart';
 
-/// Weather utilities for Aura design system
-class AuraWeatherUtils {
+/// Weather utilities for Skye design system
+class SkyeWeatherUtils {
   /// Get weather gradient based on condition
   static LinearGradient getWeatherGradient(WeatherCondition condition) {
     switch (condition) {
       case WeatherCondition.sunny:
-        return AuraColors.sunnyGradient;
+        return SkyeColors.sunnyGradient;
       case WeatherCondition.clearNight:
-        return AuraColors.clearNightGradient;
+        return SkyeColors.clearNightGradient;
       case WeatherCondition.cloudy:
-        return AuraColors.cloudyGradient;
+        return SkyeColors.cloudyGradient;
       case WeatherCondition.rainy:
-        return AuraColors.rainyGradient;
+        return SkyeColors.rainyGradient;
       case WeatherCondition.snowy:
-        return AuraColors.snowyGradient;
+        return SkyeColors.snowyGradient;
       case WeatherCondition.thunderstorm:
-        return AuraColors.thunderstormGradient;
+        return SkyeColors.thunderstormGradient;
     }
   }
 
@@ -116,26 +116,26 @@ class AuraWeatherUtils {
   /// Get weather icon color from condition
   static Color getIconColor(String condition, {String? iconCode}) {
     if (iconCode != null) {
-      if (iconCode.startsWith('01d')) return AuraColors.sunYellow;
-      if (iconCode.startsWith('01n')) return AuraColors.moonLight;
+      if (iconCode.startsWith('01d')) return SkyeColors.sunYellow;
+      if (iconCode.startsWith('01n')) return SkyeColors.moonLight;
       if (iconCode.startsWith('09') || iconCode.startsWith('10')) {
-        return AuraColors.rainBlue;
+        return SkyeColors.rainBlue;
       }
-      if (iconCode.startsWith('11')) return AuraColors.stormPurple;
-      if (iconCode.startsWith('13')) return AuraColors.snowWhite;
+      if (iconCode.startsWith('11')) return SkyeColors.stormPurple;
+      if (iconCode.startsWith('13')) return SkyeColors.snowWhite;
     }
 
     final conditionLower = condition.toLowerCase();
     if (conditionLower.contains('clear')) {
-      return AuraColors.sunYellow;
+      return SkyeColors.sunYellow;
     } else if (conditionLower.contains('rain') || conditionLower.contains('drizzle')) {
-      return AuraColors.rainBlue;
+      return SkyeColors.rainBlue;
     } else if (conditionLower.contains('thunder')) {
-      return AuraColors.stormPurple;
+      return SkyeColors.stormPurple;
     } else if (conditionLower.contains('snow')) {
-      return AuraColors.snowWhite;
+      return SkyeColors.snowWhite;
     }
 
-    return AuraColors.cloudGray;
+    return SkyeColors.cloudGray;
   }
 }

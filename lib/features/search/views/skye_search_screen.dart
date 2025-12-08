@@ -3,20 +3,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:animate_do/animate_do.dart';
 import '../viewmodels/search_viewmodel.dart';
 import '../../home/viewmodels/home_viewmodel.dart';
-import '../../../core/theme/aura_colors.dart';
-import '../../../core/theme/aura_typography.dart';
+import '../../../core/theme/skye_colors.dart';
+import '../../../core/theme/skye_typography.dart';
 import '../widgets/custom_name_dialog.dart';
 
 export '../viewmodels/search_viewmodel.dart' show RegionFilter;
 
-class AuraSearchScreen extends ConsumerStatefulWidget {
-  const AuraSearchScreen({super.key});
+class SkyeSearchScreen extends ConsumerStatefulWidget {
+  const SkyeSearchScreen({super.key});
 
   @override
-  ConsumerState<AuraSearchScreen> createState() => _AuraSearchScreenState();
+  ConsumerState<SkyeSearchScreen> createState() => _SkyeSearchScreenState();
 }
 
-class _AuraSearchScreenState extends ConsumerState<AuraSearchScreen> {
+class _SkyeSearchScreenState extends ConsumerState<SkyeSearchScreen> {
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
 
@@ -40,7 +40,7 @@ class _AuraSearchScreenState extends ConsumerState<AuraSearchScreen> {
     final searchState = ref.watch(searchProvider);
 
     return Scaffold(
-      backgroundColor: AuraColors.deepSpace,
+      backgroundColor: SkyeColors.deepSpace,
       body: SafeArea(
         child: Column(
           children: [
@@ -53,7 +53,7 @@ class _AuraSearchScreenState extends ConsumerState<AuraSearchScreen> {
                     onPressed: () => Navigator.pop(context),
                     icon: Icon(
                       Icons.arrow_back_rounded,
-                      color: AuraColors.textPrimary,
+                      color: SkyeColors.textPrimary,
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -61,18 +61,18 @@ class _AuraSearchScreenState extends ConsumerState<AuraSearchScreen> {
                     child: TextField(
                       controller: _searchController,
                       focusNode: _focusNode,
-                      style: AuraTypography.bodyLarge,
+                      style: SkyeTypography.bodyLarge,
                       decoration: InputDecoration(
                         hintText: 'Search city or location...',
                         prefixIcon: Icon(
                           Icons.search_rounded,
-                          color: AuraColors.textTertiary,
+                          color: SkyeColors.textTertiary,
                         ),
                         suffixIcon: _searchController.text.isNotEmpty
                             ? IconButton(
                                 icon: Icon(
                                   Icons.clear_rounded,
-                                  color: AuraColors.textTertiary,
+                                  color: SkyeColors.textTertiary,
                                 ),
                                 onPressed: () {
                                   _searchController.clear();
@@ -125,7 +125,7 @@ class _AuraSearchScreenState extends ConsumerState<AuraSearchScreen> {
               child: searchState.isLoading
                   ? Center(
                       child: CircularProgressIndicator(
-                        color: AuraColors.skyBlue,
+                        color: SkyeColors.skyBlue,
                       ),
                     )
                   : searchState.error != null
@@ -145,10 +145,10 @@ class _AuraSearchScreenState extends ConsumerState<AuraSearchScreen> {
       height: 56,
       padding: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
-        color: AuraColors.glassLight,
+        color: SkyeColors.glassLight,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: AuraColors.glassBorder,
+          color: SkyeColors.glassBorder,
           width: 1,
         ),
       ),
@@ -156,20 +156,20 @@ class _AuraSearchScreenState extends ConsumerState<AuraSearchScreen> {
         value: searchState.regionFilter,
         isExpanded: true,
         underline: const SizedBox(),
-        dropdownColor: AuraColors.surfaceDark,
+        dropdownColor: SkyeColors.surfaceDark,
         icon: Icon(
           Icons.arrow_drop_down_rounded,
-          color: AuraColors.textTertiary,
+          color: SkyeColors.textTertiary,
         ),
-        style: AuraTypography.body,
+        style: SkyeTypography.body,
         items: [
           DropdownMenuItem(
             value: RegionFilter.all,
             child: Row(
               children: [
-                Icon(Icons.public_rounded, size: 20, color: AuraColors.skyBlue),
+                Icon(Icons.public_rounded, size: 20, color: SkyeColors.skyBlue),
                 const SizedBox(width: 12),
-                Text('All Regions', style: AuraTypography.body),
+                Text('All Regions', style: SkyeTypography.body),
               ],
             ),
           ),
@@ -177,9 +177,9 @@ class _AuraSearchScreenState extends ConsumerState<AuraSearchScreen> {
             value: RegionFilter.africa,
             child: Row(
               children: [
-                Icon(Icons.explore_rounded, size: 20, color: AuraColors.skyBlue),
+                Icon(Icons.explore_rounded, size: 20, color: SkyeColors.skyBlue),
                 const SizedBox(width: 12),
-                Text('Africa', style: AuraTypography.body),
+                Text('Africa', style: SkyeTypography.body),
               ],
             ),
           ),
@@ -187,9 +187,9 @@ class _AuraSearchScreenState extends ConsumerState<AuraSearchScreen> {
             value: RegionFilter.asia,
             child: Row(
               children: [
-                Icon(Icons.explore_rounded, size: 20, color: AuraColors.skyBlue),
+                Icon(Icons.explore_rounded, size: 20, color: SkyeColors.skyBlue),
                 const SizedBox(width: 12),
-                Text('Asia', style: AuraTypography.body),
+                Text('Asia', style: SkyeTypography.body),
               ],
             ),
           ),
@@ -197,9 +197,9 @@ class _AuraSearchScreenState extends ConsumerState<AuraSearchScreen> {
             value: RegionFilter.europe,
             child: Row(
               children: [
-                Icon(Icons.explore_rounded, size: 20, color: AuraColors.skyBlue),
+                Icon(Icons.explore_rounded, size: 20, color: SkyeColors.skyBlue),
                 const SizedBox(width: 12),
-                Text('Europe', style: AuraTypography.body),
+                Text('Europe', style: SkyeTypography.body),
               ],
             ),
           ),
@@ -207,9 +207,9 @@ class _AuraSearchScreenState extends ConsumerState<AuraSearchScreen> {
             value: RegionFilter.northAmerica,
             child: Row(
               children: [
-                Icon(Icons.explore_rounded, size: 20, color: AuraColors.skyBlue),
+                Icon(Icons.explore_rounded, size: 20, color: SkyeColors.skyBlue),
                 const SizedBox(width: 12),
-                Text('N. America', style: AuraTypography.body),
+                Text('N. America', style: SkyeTypography.body),
               ],
             ),
           ),
@@ -217,9 +217,9 @@ class _AuraSearchScreenState extends ConsumerState<AuraSearchScreen> {
             value: RegionFilter.southAmerica,
             child: Row(
               children: [
-                Icon(Icons.explore_rounded, size: 20, color: AuraColors.skyBlue),
+                Icon(Icons.explore_rounded, size: 20, color: SkyeColors.skyBlue),
                 const SizedBox(width: 12),
-                Text('S. America', style: AuraTypography.body),
+                Text('S. America', style: SkyeTypography.body),
               ],
             ),
           ),
@@ -227,9 +227,9 @@ class _AuraSearchScreenState extends ConsumerState<AuraSearchScreen> {
             value: RegionFilter.oceania,
             child: Row(
               children: [
-                Icon(Icons.explore_rounded, size: 20, color: AuraColors.skyBlue),
+                Icon(Icons.explore_rounded, size: 20, color: SkyeColors.skyBlue),
                 const SizedBox(width: 12),
-                Text('Oceania', style: AuraTypography.body),
+                Text('Oceania', style: SkyeTypography.body),
               ],
             ),
           ),
@@ -253,13 +253,13 @@ class _AuraSearchScreenState extends ConsumerState<AuraSearchScreen> {
         height: 56,
         decoration: BoxDecoration(
           color: searchState.showFavoritesOnly
-              ? AuraColors.skyBlue.withOpacity(0.2)
-              : AuraColors.glassLight,
+              ? SkyeColors.skyBlue.withOpacity(0.2)
+              : SkyeColors.glassLight,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
             color: searchState.showFavoritesOnly
-                ? AuraColors.skyBlue
-                : AuraColors.glassBorder,
+                ? SkyeColors.skyBlue
+                : SkyeColors.glassBorder,
             width: 1,
           ),
         ),
@@ -268,8 +268,8 @@ class _AuraSearchScreenState extends ConsumerState<AuraSearchScreen> {
               ? Icons.favorite_rounded
               : Icons.favorite_border_rounded,
           color: searchState.showFavoritesOnly
-              ? AuraColors.skyBlue
-              : AuraColors.textTertiary,
+              ? SkyeColors.skyBlue
+              : SkyeColors.textTertiary,
           size: 24,
         ),
       ),
@@ -298,7 +298,7 @@ class _AuraSearchScreenState extends ConsumerState<AuraSearchScreen> {
               margin: const EdgeInsets.only(bottom: 12),
               padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(
-                color: AuraColors.glassLight,
+                color: SkyeColors.glassLight,
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(
                   color: Colors.white.withOpacity(0.1),
@@ -314,7 +314,7 @@ class _AuraSearchScreenState extends ConsumerState<AuraSearchScreen> {
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                         colors: [
-                          AuraColors.skyBlue,
+                          SkyeColors.skyBlue,
                           const Color.fromARGB(255, 54, 122, 185),
                         ],
                       ),
@@ -333,12 +333,12 @@ class _AuraSearchScreenState extends ConsumerState<AuraSearchScreen> {
                       children: [
                         Text(
                           location.name,
-                          style: AuraTypography.subtitle,
+                          style: SkyeTypography.subtitle,
                         ),
                         const SizedBox(height: 4),
                         Text(
                           location.displayName,
-                          style: AuraTypography.bodySmall,
+                          style: SkyeTypography.bodySmall,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -353,7 +353,7 @@ class _AuraSearchScreenState extends ConsumerState<AuraSearchScreen> {
                           onPressed: () => _showEditCustomNameDialog(location),
                           icon: Icon(
                             Icons.edit_rounded,
-                            color: AuraColors.textSecondary,
+                            color: SkyeColors.textSecondary,
                             size: 20,
                           ),
                           tooltip: 'Edit custom name',
@@ -372,7 +372,7 @@ class _AuraSearchScreenState extends ConsumerState<AuraSearchScreen> {
                         },
                         icon: Icon(
                           isFav ? Icons.favorite_rounded : Icons.favorite_border_rounded,
-                          color: isFav ? AuraColors.skyBlue : AuraColors.textMuted,
+                          color: isFav ? SkyeColors.skyBlue : SkyeColors.textMuted,
                           size: 24,
                         ),
                       ),
@@ -380,7 +380,7 @@ class _AuraSearchScreenState extends ConsumerState<AuraSearchScreen> {
                   ),
                   Icon(
                     Icons.chevron_right_rounded,
-                    color: AuraColors.textMuted,
+                    color: SkyeColors.textMuted,
                   ),
                 ],
               ),
@@ -401,20 +401,20 @@ class _AuraSearchScreenState extends ConsumerState<AuraSearchScreen> {
             Icon(
               showingFavorites ? Icons.favorite_border_rounded : Icons.search_rounded,
               size: 64,
-              color: AuraColors.textMuted,
+              color: SkyeColors.textMuted,
             ),
             const SizedBox(height: 24),
             Text(
               showingFavorites ? 'No favorites yet' : 'Search for a city',
-              style: AuraTypography.title,
+              style: SkyeTypography.title,
             ),
             const SizedBox(height: 12),
             Text(
               showingFavorites
                   ? 'Add cities to favorites to see them here'
                   : 'Enter at least 3 characters to search',
-              style: AuraTypography.body.copyWith(
-                color: AuraColors.textTertiary,
+              style: SkyeTypography.body.copyWith(
+                color: SkyeColors.textTertiary,
               ),
               textAlign: TextAlign.center,
             ),
@@ -434,17 +434,17 @@ class _AuraSearchScreenState extends ConsumerState<AuraSearchScreen> {
             Icon(
               Icons.error_outline_rounded,
               size: 64,
-              color: AuraColors.error,
+              color: SkyeColors.error,
             ),
             const SizedBox(height: 24),
             Text(
               'Search failed',
-              style: AuraTypography.title,
+              style: SkyeTypography.title,
             ),
             const SizedBox(height: 12),
             Text(
               error,
-              style: AuraTypography.body,
+              style: SkyeTypography.body,
               textAlign: TextAlign.center,
             ),
           ],

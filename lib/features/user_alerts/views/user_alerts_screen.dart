@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../viewmodels/user_alerts_viewmodel.dart';
 import '../widgets/user_alert_card.dart';
 import '../widgets/create_alert_dialog.dart';
-import '../../../core/theme/aura_colors.dart';
+import '../../../core/theme/skye_colors.dart';
 
 class UserAlertsScreen extends ConsumerWidget {
   const UserAlertsScreen({super.key});
@@ -13,20 +13,20 @@ class UserAlertsScreen extends ConsumerWidget {
     final userAlertsState = ref.watch(userAlertsProvider);
 
     return Scaffold(
-      backgroundColor: AuraColors.deepSpace,
+      backgroundColor: SkyeColors.deepSpace,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Text(
           'My Weather Alerts',
           style: TextStyle(
-            color: AuraColors.textPrimary,
+            color: SkyeColors.textPrimary,
             fontSize: 20,
             fontWeight: FontWeight.w600,
           ),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new, color: AuraColors.textPrimary),
+          icon: Icon(Icons.arrow_back_ios_new, color: SkyeColors.textPrimary),
           onPressed: () => Navigator.pop(context),
         ),
       ),
@@ -36,7 +36,7 @@ class UserAlertsScreen extends ConsumerWidget {
             child: userAlertsState.isLoading
                 ? Center(
                     child: CircularProgressIndicator(
-                      color: AuraColors.skyBlue,
+                      color: SkyeColors.skyBlue,
                     ),
                   )
                 : userAlertsState.alerts.isEmpty
@@ -46,7 +46,7 @@ class UserAlertsScreen extends ConsumerWidget {
           Container(
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: AuraColors.surfaceDark,
+              color: SkyeColors.surfaceDark,
               border: Border(
                 top: BorderSide(
                   color: Colors.white.withOpacity(0.1),
@@ -61,7 +61,7 @@ class UserAlertsScreen extends ConsumerWidget {
                 child: ElevatedButton.icon(
                   onPressed: () => _showCreateAlertDialog(context, ref),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: AuraColors.skyBlue,
+                    backgroundColor: SkyeColors.skyBlue,
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),
@@ -95,20 +95,20 @@ class UserAlertsScreen extends ConsumerWidget {
             Container(
               padding: const EdgeInsets.all(32),
               decoration: BoxDecoration(
-                color: AuraColors.skyBlue.withOpacity(0.1),
+                color: SkyeColors.skyBlue.withOpacity(0.1),
                 shape: BoxShape.circle,
               ),
               child: Icon(
                 Icons.notifications_none_rounded,
                 size: 64,
-                color: AuraColors.skyBlue,
+                color: SkyeColors.skyBlue,
               ),
             ),
             const SizedBox(height: 24),
             Text(
               'No Weather Alerts Yet',
               style: TextStyle(
-                color: AuraColors.textPrimary,
+                color: SkyeColors.textPrimary,
                 fontSize: 22,
                 fontWeight: FontWeight.w600,
               ),
@@ -118,7 +118,7 @@ class UserAlertsScreen extends ConsumerWidget {
             Text(
               'Create custom alerts to get notified when weather conditions match your preferences',
               style: TextStyle(
-                color: AuraColors.textSecondary,
+                color: SkyeColors.textSecondary,
                 fontSize: 15,
                 height: 1.5,
               ),
@@ -169,24 +169,24 @@ class UserAlertsScreen extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: AuraColors.surfaceDark,
+        backgroundColor: SkyeColors.surfaceDark,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
         title: Text(
           'Delete Alert?',
-          style: TextStyle(color: AuraColors.textPrimary),
+          style: TextStyle(color: SkyeColors.textPrimary),
         ),
         content: Text(
           'Are you sure you want to delete "${alert.name}"?',
-          style: TextStyle(color: AuraColors.textSecondary),
+          style: TextStyle(color: SkyeColors.textSecondary),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
             child: Text(
               'Cancel',
-              style: TextStyle(color: AuraColors.textSecondary),
+              style: TextStyle(color: SkyeColors.textSecondary),
             ),
           ),
           TextButton(
@@ -196,7 +196,7 @@ class UserAlertsScreen extends ConsumerWidget {
             },
             child: Text(
               'Delete',
-              style: TextStyle(color: AuraColors.error),
+              style: TextStyle(color: SkyeColors.error),
             ),
           ),
         ],

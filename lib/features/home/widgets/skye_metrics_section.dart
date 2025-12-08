@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:animate_do/animate_do.dart';
-import '../../../core/theme/aura_colors.dart';
-import '../../../core/theme/aura_typography.dart';
+import '../../../core/theme/skye_colors.dart';
+import '../../../core/theme/skye_typography.dart';
 import '../../../core/widgets/animated_wind_card.dart';
 import '../../../core/widgets/animated_humidity_card.dart';
 import '../../../core/widgets/animated_pressure_card.dart';
 import '../../../core/widgets/animated_visibility_card.dart';
-import '../../../core/utils/aura_weather_utils.dart';
+import '../../../core/utils/skye_weather_utils.dart';
 import '../../../core/utils/date_utils.dart';
 import '../../../core/utils/weather_formatters.dart';
 import '../../../data/models/weather_model.dart';
 import '../../settings/viewmodels/settings_viewmodel.dart';
 import '../../settings/viewmodels/settings_state.dart';
 
-class AuraMetricsSection extends ConsumerWidget {
+class SkyeMetricsSection extends ConsumerWidget {
   final WeatherModel weather;
 
-  const AuraMetricsSection({
+  const SkyeMetricsSection({
     super.key,
     required this.weather,
   });
@@ -44,7 +44,7 @@ class AuraMetricsSection extends ConsumerWidget {
                       weather.sunrise,
                       use24Hour: settings.timeFormat == TimeFormat.twentyFourHour,
                     ),
-                    color: AuraColors.sunYellow,
+                    color: SkyeColors.sunYellow,
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -56,7 +56,7 @@ class AuraMetricsSection extends ConsumerWidget {
                       weather.sunset,
                       use24Hour: settings.timeFormat == TimeFormat.twentyFourHour,
                     ),
-                    color: AuraColors.twilightPurple,
+                    color: SkyeColors.twilightPurple,
                   ),
                 ),
               ],
@@ -73,7 +73,7 @@ class AuraMetricsSection extends ConsumerWidget {
               padding: const EdgeInsets.only(bottom: 16),
               child: Text(
                 'Weather Details',
-                style: AuraTypography.title,
+                style: SkyeTypography.title,
               ),
             ),
           ),
@@ -88,7 +88,7 @@ class AuraMetricsSection extends ConsumerWidget {
                 child: AnimatedWindCard(
                   value: weather.windSpeed.formatWindSpeed(settings),
                   windSpeed: weather.windSpeed,
-                  accentColor: AuraColors.skyBlue,
+                  accentColor: SkyeColors.skyBlue,
                 ),
               ),
               const SizedBox(height: 16),
@@ -98,9 +98,9 @@ class AuraMetricsSection extends ConsumerWidget {
                 duration: const Duration(milliseconds: 600),
                 delay: const Duration(milliseconds: 400),
                 child: AnimatedHumidityCard(
-                  value: AuraWeatherUtils.formatHumidity(weather.humidity),
+                  value: SkyeWeatherUtils.formatHumidity(weather.humidity),
                   humidity: weather.humidity.toDouble(),
-                  accentColor: AuraColors.skyBlue,
+                  accentColor: SkyeColors.skyBlue,
                 ),
               ),
               const SizedBox(height: 16),
@@ -113,17 +113,17 @@ class AuraMetricsSection extends ConsumerWidget {
                   children: [
                     Expanded(
                       child: AnimatedPressureCard(
-                        value: AuraWeatherUtils.formatPressure(weather.pressure),
+                        value: SkyeWeatherUtils.formatPressure(weather.pressure),
                         pressure: weather.pressure.toDouble(),
-                        accentColor: AuraColors.twilightPurple,
+                        accentColor: SkyeColors.twilightPurple,
                       ),
                     ),
                     const SizedBox(width: 16),
                     Expanded(
                       child: AnimatedVisibilityCard(
-                        value: AuraWeatherUtils.formatVisibility(weather.visibility),
+                        value: SkyeWeatherUtils.formatVisibility(weather.visibility),
                         visibility: weather.visibility / 1000, // Convert to km
-                        accentColor: AuraColors.twilightPurple,
+                        accentColor: SkyeColors.twilightPurple,
                       ),
                     ),
                   ],
@@ -145,7 +145,7 @@ class AuraMetricsSection extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: AuraColors.glassLight,
+        color: SkyeColors.glassLight,
         borderRadius: BorderRadius.circular(24),
       ),
       child: Column(
@@ -166,12 +166,12 @@ class AuraMetricsSection extends ConsumerWidget {
           const SizedBox(height: 16),
           Text(
             time,
-            style: AuraTypography.temperature,
+            style: SkyeTypography.temperature,
           ),
           const SizedBox(height: 4),
           Text(
             label,
-            style: AuraTypography.metricLabel,
+            style: SkyeTypography.metricLabel,
           ),
         ],
       ),

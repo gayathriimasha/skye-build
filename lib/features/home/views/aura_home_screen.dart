@@ -5,7 +5,7 @@ import '../widgets/aura_hero_section.dart';
 import '../widgets/aura_metrics_section.dart';
 import '../widgets/hourly_forecast_strip.dart';
 import '../widgets/plant_care_alert.dart';
-import '../widgets/moon_phase_card.dart';
+import '../widgets/uv_index_card.dart';
 import '../../search/views/aura_search_screen.dart';
 import '../../forecast/views/aura_forecast_screen.dart';
 import '../../settings/views/aura_settings_screen.dart';
@@ -162,8 +162,14 @@ class _AuraHomeScreenState extends ConsumerState<AuraHomeScreen> {
 
                                 const SizedBox(height: 8),
 
-                                // Moon Phase Card
-                                const MoonPhaseCard(),
+                                // UV Index Card
+                                if (homeState.uvData != null)
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
+                                    child: UVIndexCard(
+                                      uvData: homeState.uvData!,
+                                    ),
+                                  ),
 
                                 const SizedBox(height: 8),
 

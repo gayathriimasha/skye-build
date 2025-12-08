@@ -103,6 +103,45 @@ class ApiService {
     }
   }
 
+  Future<Map<String, dynamic>?> getUVIndexData(
+      double lat, double lon) async {
+    try {
+      // Get UV index from separate UV Index API endpoint
+      final uvResponse = await _dio.get(
+        '/data/2.5/uvi',
+        queryParameters: {
+          'lat': lat,
+          'lon': lon,
+        },
+      );
+
+      print('UV API Response: ${uvResponse.data}');
+
+      // Get sunrise/sunset from current weather
+      final weatherResponse = await _dio.get(
+        ApiConstants.currentWeather,
+        queryParameters: {
+          'lat': lat,
+          'lon': lon,
+        },
+      );
+
+      final uvIndex = (uvResponse.data['value'] ?? uvResponse.data) is num
+          ? (uvResponse.data['value'] ?? uvResponse.data).toDouble()
+          : 0.0;
+
+      return {
+        'uvi': uvIndex,
+        'sunrise': weatherResponse.data['sys']['sunrise'] ?? 0,
+        'sunset': weatherResponse.data['sys']['sunset'] ?? 0,
+      };
+    } on DioException catch (e) {
+      print('UV Index API Error: ${e.message}');
+      print('UV Index API Error Response: ${e.response?.data}');
+      return null;
+    }
+  }
+
   String _handleError(DioException error) {
     switch (error.type) {
       case DioExceptionType.connectionTimeout:

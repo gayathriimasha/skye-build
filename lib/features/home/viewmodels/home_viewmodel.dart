@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../data/models/weather_model.dart';
 import '../../../data/models/location_model.dart';
 import '../../../data/models/forecast_model.dart';
+import '../../../data/models/uv_data_model.dart';
 import '../../../core/providers/providers.dart';
 
 class HomeState {
@@ -9,6 +10,7 @@ class HomeState {
   final WeatherModel? weather;
   final ForecastModel? forecast;
   final LocationModel? currentLocation;
+  final UVDataModel? uvData;
   final String? error;
 
   HomeState({
@@ -16,6 +18,7 @@ class HomeState {
     this.weather,
     this.forecast,
     this.currentLocation,
+    this.uvData,
     this.error,
   });
 
@@ -24,6 +27,7 @@ class HomeState {
     WeatherModel? weather,
     ForecastModel? forecast,
     LocationModel? currentLocation,
+    UVDataModel? uvData,
     String? error,
   }) {
     return HomeState(
@@ -31,6 +35,7 @@ class HomeState {
       weather: weather ?? this.weather,
       forecast: forecast ?? this.forecast,
       currentLocation: currentLocation ?? this.currentLocation,
+      uvData: uvData ?? this.uvData,
       error: error,
     );
   }
@@ -47,19 +52,27 @@ class HomeNotifier extends StateNotifier<HomeState> {
     try {
       final locationRepo = ref.read(locationRepositoryProvider);
       final weatherRepo = ref.read(weatherRepositoryProvider);
+      final uvRepo = ref.read(uvRepositoryProvider);
 
       final location = await locationRepo.getCurrentLocation();
 
-      // Load both current weather and forecast in parallel
+      // Load current weather and forecast first
       final results = await Future.wait([
         weatherRepo.getCurrentWeather(location.lat, location.lon),
         weatherRepo.getForecast(location.lat, location.lon),
       ]);
 
+      final weather = results[0] as WeatherModel;
+      final forecast = results[1] as ForecastModel;
+
+      // Now load UV data using the weather data
+      final uvData = await uvRepo.getUVData(location.lat, location.lon, weather);
+
       state = state.copyWith(
         isLoading: false,
-        weather: results[0] as WeatherModel,
-        forecast: results[1] as ForecastModel,
+        weather: weather,
+        forecast: forecast,
+        uvData: uvData,
         currentLocation: location,
       );
     } catch (e) {
@@ -75,17 +88,25 @@ class HomeNotifier extends StateNotifier<HomeState> {
 
     try {
       final weatherRepo = ref.read(weatherRepositoryProvider);
+      final uvRepo = ref.read(uvRepositoryProvider);
 
-      // Load both current weather and forecast in parallel
+      // Load current weather and forecast first
       final results = await Future.wait([
         weatherRepo.getCurrentWeather(lat, lon),
         weatherRepo.getForecast(lat, lon),
       ]);
 
+      final weather = results[0] as WeatherModel;
+      final forecast = results[1] as ForecastModel;
+
+      // Now load UV data using the weather data
+      final uvData = await uvRepo.getUVData(lat, lon, weather);
+
       state = state.copyWith(
         isLoading: false,
-        weather: results[0] as WeatherModel,
-        forecast: results[1] as ForecastModel,
+        weather: weather,
+        forecast: forecast,
+        uvData: uvData,
       );
     } catch (e) {
       state = state.copyWith(

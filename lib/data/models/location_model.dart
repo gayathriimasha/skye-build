@@ -5,6 +5,7 @@ class LocationModel {
   final String country;
   final String? state;
   final bool isFavorite;
+  final String? customName;
 
   LocationModel({
     required this.name,
@@ -13,6 +14,7 @@ class LocationModel {
     required this.country,
     this.state,
     this.isFavorite = false,
+    this.customName,
   });
 
   factory LocationModel.fromJson(Map<String, dynamic> json) {
@@ -23,6 +25,7 @@ class LocationModel {
       country: json['country'] ?? '',
       state: json['state'],
       isFavorite: json['is_favorite'] ?? false,
+      customName: json['custom_name'],
     );
   }
 
@@ -34,6 +37,7 @@ class LocationModel {
       'country': country,
       'state': state,
       'is_favorite': isFavorite,
+      'custom_name': customName,
     };
   }
 
@@ -44,6 +48,7 @@ class LocationModel {
     String? country,
     String? state,
     bool? isFavorite,
+    String? customName,
   }) {
     return LocationModel(
       name: name ?? this.name,
@@ -52,10 +57,21 @@ class LocationModel {
       country: country ?? this.country,
       state: state ?? this.state,
       isFavorite: isFavorite ?? this.isFavorite,
+      customName: customName ?? this.customName,
     );
   }
 
   String get displayName {
+    if (customName != null && customName!.isNotEmpty) {
+      return customName!;
+    }
+    if (state != null && state!.isNotEmpty) {
+      return '$name, $state, $country';
+    }
+    return '$name, $country';
+  }
+
+  String get fullLocationName {
     if (state != null && state!.isNotEmpty) {
       return '$name, $state, $country';
     }

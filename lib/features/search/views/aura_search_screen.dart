@@ -5,6 +5,7 @@ import '../viewmodels/search_viewmodel.dart';
 import '../../home/viewmodels/home_viewmodel.dart';
 import '../../../core/theme/aura_colors.dart';
 import '../../../core/theme/aura_typography.dart';
+import '../widgets/custom_name_dialog.dart';
 
 export '../viewmodels/search_viewmodel.dart' show RegionFilter;
 
@@ -344,15 +345,38 @@ class _AuraSearchScreenState extends ConsumerState<AuraSearchScreen> {
                       ],
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {
-                      ref.read(searchProvider.notifier).toggleFavorite(location);
-                    },
-                    icon: Icon(
-                      isFav ? Icons.favorite_rounded : Icons.favorite_border_rounded,
-                      color: isFav ? AuraColors.skyBlue : AuraColors.textMuted,
-                      size: 24,
-                    ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (isFav)
+                        IconButton(
+                          onPressed: () => _showEditCustomNameDialog(location),
+                          icon: Icon(
+                            Icons.edit_rounded,
+                            color: AuraColors.textSecondary,
+                            size: 20,
+                          ),
+                          tooltip: 'Edit custom name',
+                        ),
+                      IconButton(
+                        onPressed: () async {
+                          if (isFav) {
+                            ref.read(searchProvider.notifier).toggleFavorite(location);
+                          } else {
+                            final customName = await _showCustomNameDialog(location);
+                            ref.read(searchProvider.notifier).toggleFavorite(
+                              location,
+                              customName: customName,
+                            );
+                          }
+                        },
+                        icon: Icon(
+                          isFav ? Icons.favorite_rounded : Icons.favorite_border_rounded,
+                          color: isFav ? AuraColors.skyBlue : AuraColors.textMuted,
+                          size: 24,
+                        ),
+                      ),
+                    ],
                   ),
                   Icon(
                     Icons.chevron_right_rounded,
@@ -427,5 +451,29 @@ class _AuraSearchScreenState extends ConsumerState<AuraSearchScreen> {
         ),
       ),
     );
+  }
+
+  Future<String?> _showCustomNameDialog(location) async {
+    return await showDialog<String>(
+      context: context,
+      builder: (context) => CustomNameDialog(
+        locationName: location.fullLocationName,
+      ),
+    );
+  }
+
+  Future<void> _showEditCustomNameDialog(location) async {
+    final currentCustomName = location.customName;
+    final newCustomName = await showDialog<String>(
+      context: context,
+      builder: (context) => CustomNameDialog(
+        locationName: location.fullLocationName,
+        currentCustomName: currentCustomName,
+      ),
+    );
+
+    if (newCustomName != null) {
+      ref.read(searchProvider.notifier).updateCustomName(location, newCustomName);
+    }
   }
 }

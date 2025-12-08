@@ -6,6 +6,7 @@ import '../../../core/widgets/glass_card.dart';
 import '../../../data/models/weather_alert_model.dart';
 import '../viewmodels/alerts_viewmodel.dart';
 import '../../home/viewmodels/home_viewmodel.dart';
+import '../../user_alerts/views/user_alerts_screen.dart';
 
 class AuraAlertsScreen extends ConsumerStatefulWidget {
   const AuraAlertsScreen({super.key});
@@ -53,11 +54,67 @@ class _AuraAlertsScreenState extends ConsumerState<AuraAlertsScreen> {
           ),
         ),
         child: SafeArea(
-          child: Column(
+          child: Stack(
             children: [
-              _buildHeader(context),
-              Expanded(
-                child: _buildBody(alertsState, homeState),
+              Column(
+                children: [
+                  _buildHeader(context),
+                  Expanded(
+                    child: _buildBody(alertsState, homeState),
+                  ),
+                ],
+              ),
+              Positioned(
+                right: 20,
+                bottom: 20,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const UserAlertsScreen(),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          AuraColors.skyBlue,
+                          const Color.fromARGB(255, 54, 122, 185),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AuraColors.skyBlue.withOpacity(0.4),
+                          blurRadius: 16,
+                          offset: const Offset(0, 6),
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.notifications_active_rounded,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          'My Alerts',
+                          style: AuraTypography.body.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 15,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
@@ -91,23 +148,25 @@ class _AuraAlertsScreenState extends ConsumerState<AuraAlertsScreen> {
             ),
           ),
           const SizedBox(width: 16),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Weather Alerts',
-                style: AuraTypography.headline.copyWith(
-                  color: Colors.white,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Weather Alerts',
+                  style: AuraTypography.headline.copyWith(
+                    color: Colors.white,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                ref.watch(homeProvider).weather?.cityName ?? 'Your Location',
-                style: AuraTypography.body.copyWith(
-                  color: Colors.white.withOpacity(0.6),
+                const SizedBox(height: 4),
+                Text(
+                  ref.watch(homeProvider).weather?.cityName ?? 'Your Location',
+                  style: AuraTypography.body.copyWith(
+                    color: Colors.white.withOpacity(0.6),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),
@@ -135,7 +194,7 @@ class _AuraAlertsScreenState extends ConsumerState<AuraAlertsScreen> {
       );
     }
 
-    if (alertsState.alerts.isEmpty) {
+    if (alertsState.alerts.isEmpty && alertsState.userAlerts.isEmpty) {
       return _buildNoAlerts();
     }
 
@@ -152,9 +211,13 @@ class _AuraAlertsScreenState extends ConsumerState<AuraAlertsScreen> {
       color: AuraColors.skyBlue,
       child: ListView.builder(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        itemCount: alertsState.sortedAlerts.length,
+        itemCount: alertsState.sortedAlerts.length + alertsState.userAlerts.length,
         itemBuilder: (context, index) {
-          return _buildAlertCard(alertsState.sortedAlerts[index]);
+          if (index < alertsState.userAlerts.length) {
+            return _buildUserAlertCard(alertsState.userAlerts[index]);
+          } else {
+            return _buildAlertCard(alertsState.sortedAlerts[index - alertsState.userAlerts.length]);
+          }
         },
       ),
     );
@@ -347,5 +410,98 @@ class _AuraAlertsScreenState extends ConsumerState<AuraAlertsScreen> {
       case AlertSeverity.minor:
         return 'MINOR';
     }
+  }
+
+  Widget _buildUserAlertCard(alert) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: GlassCard(
+        borderRadius: 24,
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      Icons.notifications_active_rounded,
+                      color: AuraColors.skyBlue,
+                      size: 18,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      'MY ALERT',
+                      style: AuraTypography.bodySmall.copyWith(
+                        color: AuraColors.textSecondary,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 12,
+                        letterSpacing: 0.5,
+                      ),
+                    ),
+                  ],
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: AuraColors.skyBlue.withOpacity(0.15),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.check_circle_rounded,
+                        color: AuraColors.skyBlue,
+                        size: 12,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        'ACTIVE',
+                        style: AuraTypography.caption.copyWith(
+                          color: AuraColors.skyBlue,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 14),
+            Text(
+              alert.name,
+              style: AuraTypography.title.copyWith(
+                color: AuraColors.textPrimary,
+                fontWeight: FontWeight.w600,
+                fontSize: 17,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                Icon(
+                  Icons.thermostat_rounded,
+                  size: 16,
+                  color: AuraColors.textSecondary,
+                ),
+                const SizedBox(width: 6),
+                Text(
+                  alert.conditionDescription,
+                  style: AuraTypography.body.copyWith(
+                    color: AuraColors.textSecondary,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

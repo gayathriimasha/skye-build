@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:animate_do/animate_do.dart';
 import '../../../core/theme/aura_colors.dart';
 import '../../../core/theme/aura_typography.dart';
 import '../../../core/utils/aura_weather_utils.dart';
 import '../../../core/utils/date_utils.dart';
+import '../../../core/utils/weather_formatters.dart';
 import '../../../core/widgets/weather_animation.dart';
 import '../../../data/models/weather_model.dart';
+import '../../settings/viewmodels/settings_viewmodel.dart';
 
-class AuraHeroSection extends StatelessWidget {
+class AuraHeroSection extends ConsumerWidget {
   final WeatherModel weather;
   final VoidCallback? onForecastTap;
 
@@ -18,8 +21,9 @@ class AuraHeroSection extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.of(context).size;
+    final settings = ref.watch(settingsProvider);
     final gradient = AuraWeatherUtils.getWeatherGradient(
       weather.getWeatherCondition(),
     );
@@ -94,7 +98,7 @@ class AuraHeroSection extends StatelessWidget {
                       curve: Curves.easeOutCubic,
                       builder: (context, value, child) {
                         return Text(
-                          AuraWeatherUtils.formatTemperature(value),
+                          value.formatTemperature(settings),
                           style: AuraTypography.display,
                         );
                       },
@@ -123,7 +127,7 @@ class AuraHeroSection extends StatelessWidget {
                   FadeInUp(
                     duration: const Duration(milliseconds: 600),
                     delay: const Duration(milliseconds: 500),
-                    child: _buildQuickStats(),
+                    child: _buildQuickStats(settings),
                   ),
 
                   const SizedBox(height: 16),
@@ -146,7 +150,7 @@ class AuraHeroSection extends StatelessWidget {
     );
   }
 
-  Widget _buildQuickStats() {
+  Widget _buildQuickStats(settings) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       decoration: BoxDecoration(
@@ -158,7 +162,7 @@ class AuraHeroSection extends StatelessWidget {
         children: [
           _buildQuickStat(
             'Feels Like',
-            AuraWeatherUtils.formatTemperature(weather.feelsLike),
+            weather.feelsLike.formatTemperature(settings),
           ),
           _buildDivider(),
           _buildQuickStat(
@@ -168,7 +172,7 @@ class AuraHeroSection extends StatelessWidget {
           _buildDivider(),
           _buildQuickStat(
             'Wind',
-            AuraWeatherUtils.formatWindSpeed(weather.windSpeed),
+            weather.windSpeed.formatWindSpeed(settings),
           ),
         ],
       ),

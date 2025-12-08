@@ -1,23 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/aura_colors.dart';
 import '../../../core/theme/aura_typography.dart';
 import '../../../core/widgets/settings_tile.dart';
+import '../viewmodels/settings_viewmodel.dart';
+import '../viewmodels/settings_state.dart';
 
-class AuraSettingsScreen extends StatefulWidget {
+class AuraSettingsScreen extends ConsumerWidget {
   const AuraSettingsScreen({super.key});
 
   @override
-  State<AuraSettingsScreen> createState() => _AuraSettingsScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final settingsState = ref.watch(settingsProvider);
 
-class _AuraSettingsScreenState extends State<AuraSettingsScreen> {
-  bool _animationsEnabled = true;
-  String _temperatureUnit = 'Celsius';
-  String _windSpeedUnit = 'm/s';
-  String _timeFormat = '24-hour';
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AuraColors.deepSpace,
       body: SafeArea(
@@ -53,8 +48,8 @@ class _AuraSettingsScreenState extends State<AuraSettingsScreen> {
                   SettingsTile(
                     icon: Icons.thermostat_rounded,
                     title: 'Temperature',
-                    subtitle: _temperatureUnit,
-                    onTap: _showTemperatureDialog,
+                    subtitle: settingsState.temperatureUnitString,
+                    onTap: () => _showTemperatureDialog(context, ref, settingsState),
                     iconColor: AuraColors.skyBlue,
                   ),
                   const SizedBox(height: 12),
@@ -62,8 +57,8 @@ class _AuraSettingsScreenState extends State<AuraSettingsScreen> {
                   SettingsTile(
                     icon: Icons.air_rounded,
                     title: 'Wind Speed',
-                    subtitle: _windSpeedUnit,
-                    onTap: _showWindSpeedDialog,
+                    subtitle: settingsState.windSpeedUnitString,
+                    onTap: () => _showWindSpeedDialog(context, ref, settingsState),
                     iconColor: AuraColors.skyBlue,
                   ),
                   const SizedBox(height: 12),
@@ -71,8 +66,8 @@ class _AuraSettingsScreenState extends State<AuraSettingsScreen> {
                   SettingsTile(
                     icon: Icons.access_time_rounded,
                     title: 'Time Format',
-                    subtitle: _timeFormat,
-                    onTap: _showTimeFormatDialog,
+                    subtitle: settingsState.timeFormatString,
+                    onTap: () => _showTimeFormatDialog(context, ref, settingsState),
                     iconColor: AuraColors.skyBlue,
                   ),
 
@@ -85,12 +80,12 @@ class _AuraSettingsScreenState extends State<AuraSettingsScreen> {
                   SettingsTile(
                     icon: Icons.animation_rounded,
                     title: 'Weather Animations',
-                    subtitle: _animationsEnabled ? 'Enabled' : 'Disabled',
+                    subtitle: settingsState.animationsEnabled ? 'Enabled' : 'Disabled',
                     iconColor: AuraColors.twilightPurple,
                     trailing: Switch(
-                      value: _animationsEnabled,
+                      value: settingsState.animationsEnabled,
                       onChanged: (value) {
-                        setState(() => _animationsEnabled = value);
+                        ref.read(settingsProvider.notifier).setAnimationsEnabled(value);
                       },
                       activeTrackColor: AuraColors.skyBlue,
                     ),
@@ -127,40 +122,57 @@ class _AuraSettingsScreenState extends State<AuraSettingsScreen> {
     );
   }
 
-  void _showTemperatureDialog() {
+  void _showTemperatureDialog(BuildContext context, WidgetRef ref, SettingsState state) {
     _showOptionsDialog(
+      context: context,
       title: 'Temperature Unit',
       options: ['Celsius', 'Fahrenheit', 'Kelvin'],
-      currentValue: _temperatureUnit,
+      currentValue: state.temperatureUnitString,
       onSelected: (value) {
-        setState(() => _temperatureUnit = value);
+        final unit = value == 'Celsius'
+            ? TemperatureUnit.celsius
+            : value == 'Fahrenheit'
+                ? TemperatureUnit.fahrenheit
+                : TemperatureUnit.kelvin;
+        ref.read(settingsProvider.notifier).setTemperatureUnit(unit);
       },
     );
   }
 
-  void _showWindSpeedDialog() {
+  void _showWindSpeedDialog(BuildContext context, WidgetRef ref, SettingsState state) {
     _showOptionsDialog(
+      context: context,
       title: 'Wind Speed Unit',
       options: ['m/s', 'km/h', 'mph'],
-      currentValue: _windSpeedUnit,
+      currentValue: state.windSpeedUnitString,
       onSelected: (value) {
-        setState(() => _windSpeedUnit = value);
+        final unit = value == 'm/s'
+            ? WindSpeedUnit.metersPerSecond
+            : value == 'km/h'
+                ? WindSpeedUnit.kilometersPerHour
+                : WindSpeedUnit.milesPerHour;
+        ref.read(settingsProvider.notifier).setWindSpeedUnit(unit);
       },
     );
   }
 
-  void _showTimeFormatDialog() {
+  void _showTimeFormatDialog(BuildContext context, WidgetRef ref, SettingsState state) {
     _showOptionsDialog(
+      context: context,
       title: 'Time Format',
       options: ['24-hour', '12-hour'],
-      currentValue: _timeFormat,
+      currentValue: state.timeFormatString,
       onSelected: (value) {
-        setState(() => _timeFormat = value);
+        final format = value == '24-hour'
+            ? TimeFormat.twentyFourHour
+            : TimeFormat.twelveHour;
+        ref.read(settingsProvider.notifier).setTimeFormat(format);
       },
     );
   }
 
   void _showOptionsDialog({
+    required BuildContext context,
     required String title,
     required List<String> options,
     required String currentValue,

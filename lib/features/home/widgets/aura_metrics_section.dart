@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:animate_do/animate_do.dart';
 import '../../../core/theme/aura_colors.dart';
 import '../../../core/theme/aura_typography.dart';
@@ -8,9 +9,12 @@ import '../../../core/widgets/animated_pressure_card.dart';
 import '../../../core/widgets/animated_visibility_card.dart';
 import '../../../core/utils/aura_weather_utils.dart';
 import '../../../core/utils/date_utils.dart';
+import '../../../core/utils/weather_formatters.dart';
 import '../../../data/models/weather_model.dart';
+import '../../settings/viewmodels/settings_viewmodel.dart';
+import '../../settings/viewmodels/settings_state.dart';
 
-class AuraMetricsSection extends StatelessWidget {
+class AuraMetricsSection extends ConsumerWidget {
   final WeatherModel weather;
 
   const AuraMetricsSection({
@@ -19,7 +23,8 @@ class AuraMetricsSection extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final settings = ref.watch(settingsProvider);
     return Padding(
       padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
       child: Column(
@@ -35,7 +40,10 @@ class AuraMetricsSection extends StatelessWidget {
                   child: _buildSunCard(
                     icon: Icons.wb_sunny_rounded,
                     label: 'Sunrise',
-                    time: AppDateUtils.getTimeFromTimestamp(weather.sunrise),
+                    time: AppDateUtils.getTimeFromTimestamp(
+                      weather.sunrise,
+                      use24Hour: settings.timeFormat == TimeFormat.twentyFourHour,
+                    ),
                     color: AuraColors.sunYellow,
                   ),
                 ),
@@ -44,7 +52,10 @@ class AuraMetricsSection extends StatelessWidget {
                   child: _buildSunCard(
                     icon: Icons.nightlight_round,
                     label: 'Sunset',
-                    time: AppDateUtils.getTimeFromTimestamp(weather.sunset),
+                    time: AppDateUtils.getTimeFromTimestamp(
+                      weather.sunset,
+                      use24Hour: settings.timeFormat == TimeFormat.twentyFourHour,
+                    ),
                     color: AuraColors.twilightPurple,
                   ),
                 ),
@@ -75,7 +86,7 @@ class AuraMetricsSection extends StatelessWidget {
                 duration: const Duration(milliseconds: 600),
                 delay: const Duration(milliseconds: 300),
                 child: AnimatedWindCard(
-                  value: AuraWeatherUtils.formatWindSpeed(weather.windSpeed),
+                  value: weather.windSpeed.formatWindSpeed(settings),
                   windSpeed: weather.windSpeed,
                   accentColor: AuraColors.skyBlue,
                 ),

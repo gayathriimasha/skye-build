@@ -135,9 +135,27 @@ class SearchNotifier extends StateNotifier<SearchState> {
       final locationRepo = ref.read(locationRepositoryProvider);
       final results = await locationRepo.searchLocation(query);
 
+      final matchingFavorites = state.favorites.where((fav) {
+        final customName = fav.customName?.toLowerCase() ?? '';
+        final queryLower = query.toLowerCase();
+        return customName.isNotEmpty && customName.contains(queryLower);
+      }).toList();
+
+      final allResults = [...matchingFavorites, ...results];
+      final uniqueResults = <LocationModel>[];
+      final seenCoordinates = <String>{};
+
+      for (final result in allResults) {
+        final key = '${result.lat},${result.lon}';
+        if (!seenCoordinates.contains(key)) {
+          seenCoordinates.add(key);
+          uniqueResults.add(result);
+        }
+      }
+
       state = state.copyWith(
         isLoading: false,
-        results: results,
+        results: uniqueResults,
       );
     } catch (e) {
       state = state.copyWith(
@@ -147,7 +165,7 @@ class SearchNotifier extends StateNotifier<SearchState> {
     }
   }
 
-  Future<void> toggleFavorite(LocationModel location) async {
+  Future<void> toggleFavorite(LocationModel location, {String? customName}) async {
     try {
       final storageService = ref.read(storageServiceProvider);
       final isFav = await storageService.isFavorite(location.lat, location.lon);
@@ -161,9 +179,20 @@ class SearchNotifier extends StateNotifier<SearchState> {
           await storageService.removeFavorite(index);
         }
       } else {
-        await storageService.addFavorite(location);
+        final locationWithCustomName = location.copyWith(customName: customName);
+        await storageService.addFavorite(locationWithCustomName);
       }
 
+      await _loadFavorites();
+    } catch (e) {
+      // Handle error silently
+    }
+  }
+
+  Future<void> updateCustomName(LocationModel location, String? customName) async {
+    try {
+      final storageService = ref.read(storageServiceProvider);
+      await storageService.updateFavoriteCustomName(location.lat, location.lon, customName);
       await _loadFavorites();
     } catch (e) {
       // Handle error silently

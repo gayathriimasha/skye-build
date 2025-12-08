@@ -162,6 +162,13 @@ class _AuraHomeScreenState extends ConsumerState<AuraHomeScreen> {
 
                                 const SizedBox(height: 8),
 
+                                // Metrics section
+                                AuraMetricsSection(
+                                  weather: homeState.weather!,
+                                ),
+
+                                const SizedBox(height: 8),
+
                                 // UV Index Card
                                 if (homeState.uvData != null)
                                   Padding(
@@ -177,11 +184,6 @@ class _AuraHomeScreenState extends ConsumerState<AuraHomeScreen> {
                                 PlantCareAlert(
                                   temperature: homeState.weather!.temperature,
                                   humidity: homeState.weather!.humidity,
-                                ),
-
-                                // Metrics section
-                                AuraMetricsSection(
-                                  weather: homeState.weather!,
                                 ),
 
                                 SizedBox(height: size.height * 0.1),

@@ -6,6 +6,7 @@ import '../../data/repositories/weather_repository.dart';
 import '../../data/repositories/location_repository.dart';
 import '../../data/repositories/weather_alerts_repository.dart';
 import '../../data/repositories/uv_repository.dart';
+import '../../data/repositories/user_alert_repository.dart';
 
 // Services
 final apiServiceProvider = Provider<ApiService>((ref) => ApiService());
@@ -35,4 +36,9 @@ final weatherAlertsRepositoryProvider = Provider<WeatherAlertsRepository>((ref) 
 final uvRepositoryProvider = Provider<UVRepository>((ref) {
   final apiService = ref.read(apiServiceProvider);
   return UVRepository(apiService);
+});
+
+final userAlertRepositoryProvider = Provider<UserAlertRepository>((ref) {
+  final storageService = ref.read(storageServiceProvider);
+  return UserAlertRepository(storageService);
 });

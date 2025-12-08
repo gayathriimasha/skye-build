@@ -75,6 +75,8 @@ class HomeNotifier extends StateNotifier<HomeState> {
         uvData: uvData,
         currentLocation: location,
       );
+
+      await _checkUserAlerts(weather);
     } catch (e) {
       state = state.copyWith(
         isLoading: false,
@@ -108,11 +110,22 @@ class HomeNotifier extends StateNotifier<HomeState> {
         forecast: forecast,
         uvData: uvData,
       );
+
+      await _checkUserAlerts(weather);
     } catch (e) {
       state = state.copyWith(
         isLoading: false,
         error: e.toString(),
       );
+    }
+  }
+
+  Future<void> _checkUserAlerts(WeatherModel weather) async {
+    try {
+      final userAlertRepo = ref.read(userAlertRepositoryProvider);
+      await userAlertRepo.checkAlerts(weather);
+    } catch (e) {
+      // Silently handle alert checking errors
     }
   }
 

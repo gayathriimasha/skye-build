@@ -3,6 +3,7 @@ import '../../core/constants/api_constants.dart';
 import '../models/weather_model.dart';
 import '../models/location_model.dart';
 import '../models/forecast_model.dart';
+import '../models/weather_alert_model.dart';
 
 class ApiService {
   late final Dio _dio;
@@ -72,6 +73,33 @@ class ApiService {
       return data.map((json) => LocationModel.fromJson(json)).toList();
     } on DioException catch (e) {
       throw _handleError(e);
+    }
+  }
+
+  Future<List<WeatherAlertModel>> getWeatherAlerts(
+      double lat, double lon) async {
+    try {
+      final response = await _dio.get(
+        ApiConstants.oneCall,
+        queryParameters: {
+          'lat': lat,
+          'lon': lon,
+          'exclude': 'minutely,hourly,daily,current',
+        },
+      );
+
+      if (response.data['alerts'] != null) {
+        final List<dynamic> alertsData = response.data['alerts'];
+        return alertsData
+            .map((json) => WeatherAlertModel.fromJson(json))
+            .toList();
+      }
+
+      return [];
+    } on DioException catch (e) {
+      // If there's an error or no alerts, return empty list
+      print('Weather Alerts API Error: ${e.message}');
+      return [];
     }
   }
 

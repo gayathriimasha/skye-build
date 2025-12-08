@@ -5,9 +5,12 @@ import '../widgets/aura_hero_section.dart';
 import '../widgets/aura_metrics_section.dart';
 import '../widgets/hourly_forecast_strip.dart';
 import '../widgets/plant_care_alert.dart';
+import '../widgets/moon_phase_card.dart';
 import '../../search/views/aura_search_screen.dart';
 import '../../forecast/views/aura_forecast_screen.dart';
 import '../../settings/views/aura_settings_screen.dart';
+import '../../alerts/views/aura_alerts_screen.dart';
+import '../../alerts/viewmodels/alerts_viewmodel.dart';
 import '../../../core/theme/aura_colors.dart';
 import '../../../core/widgets/aura_search_bar.dart';
 import '../../../core/widgets/weather_particles.dart';
@@ -23,8 +26,16 @@ class _AuraHomeScreenState extends ConsumerState<AuraHomeScreen> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() {
-      ref.read(homeProvider.notifier).loadCurrentLocationWeather();
+    Future.microtask(() async {
+      await ref.read(homeProvider.notifier).loadCurrentLocationWeather();
+      // Load alerts after weather is loaded
+      final weather = ref.read(homeProvider).weather;
+      if (weather != null) {
+        ref.read(alertsProvider.notifier).loadWeatherAlerts(
+              weather.lat,
+              weather.lon,
+            );
+      }
     });
   }
 
@@ -66,6 +77,23 @@ class _AuraHomeScreenState extends ConsumerState<AuraHomeScreen> {
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
             const AuraSettingsScreen(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        },
+        transitionDuration: const Duration(milliseconds: 300),
+      ),
+    );
+  }
+
+  void _openAlerts() {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const AuraAlertsScreen(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return FadeTransition(
             opacity: animation,
@@ -134,6 +162,11 @@ class _AuraHomeScreenState extends ConsumerState<AuraHomeScreen> {
 
                                 const SizedBox(height: 8),
 
+                                // Moon Phase Card
+                                const MoonPhaseCard(),
+
+                                const SizedBox(height: 8),
+
                                 // Plant Care Alert
                                 PlantCareAlert(
                                   temperature: homeState.weather!.temperature,
@@ -164,6 +197,8 @@ class _AuraHomeScreenState extends ConsumerState<AuraHomeScreen> {
                                 ),
                               ),
                               const SizedBox(width: 12),
+                              _buildAlertButton(),
+                              const SizedBox(width: 12),
                               _buildIconButton(
                                 icon: Icons.settings_rounded,
                                 onTap: _openSettings,
@@ -193,6 +228,72 @@ class _AuraHomeScreenState extends ConsumerState<AuraHomeScreen> {
           color: AuraColors.textPrimary,
           size: 22,
         ),
+      ),
+    );
+  }
+
+  Widget _buildAlertButton() {
+    final alertsState = ref.watch(alertsProvider);
+    final hasAlerts = alertsState.hasActiveAlerts;
+    final alertCount = alertsState.activeAlertsCount;
+
+    return GestureDetector(
+      onTap: _openAlerts,
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(14),
+            decoration: BoxDecoration(
+              color: hasAlerts
+                  ? const Color(0xFFEF4444).withOpacity(0.2)
+                  : Colors.white.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(16),
+              border: hasAlerts
+                  ? Border.all(
+                      color: const Color(0xFFEF4444).withOpacity(0.3),
+                      width: 1.5,
+                    )
+                  : null,
+            ),
+            child: Icon(
+              Icons.warning_rounded,
+              color: hasAlerts ? const Color(0xFFEF4444) : AuraColors.textPrimary,
+              size: 22,
+            ),
+          ),
+          if (hasAlerts && alertCount > 0)
+            Positioned(
+              top: -6,
+              right: -6,
+              child: Container(
+                padding: const EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFEF4444),
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: AuraColors.deepSpace,
+                    width: 2,
+                  ),
+                ),
+                constraints: const BoxConstraints(
+                  minWidth: 20,
+                  minHeight: 20,
+                ),
+                child: Center(
+                  child: Text(
+                    alertCount > 9 ? '9+' : alertCount.toString(),
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                      height: 1,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+        ],
       ),
     );
   }

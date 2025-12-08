@@ -38,11 +38,15 @@ class AuraSearchBar extends StatelessWidget {
                   size: 22,
                 ),
                 const SizedBox(width: 12),
-                Text(
-                  hint,
-                  style: AuraTypography.body.copyWith(
-                    color: AuraColors.textPrimary.withOpacity(0.85),
-                    fontWeight: FontWeight.w500,
+                Expanded(
+                  child: Text(
+                    hint,
+                    style: AuraTypography.body.copyWith(
+                      color: AuraColors.textPrimary.withOpacity(0.85),
+                      fontWeight: FontWeight.w500,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                   ),
                 ),
               ],

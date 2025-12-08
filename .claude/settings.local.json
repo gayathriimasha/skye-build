@@ -4,7 +4,8 @@
       "WebSearch",
       "Bash(flutter pub get:*)",
       "Bash(flutter pub run:*)",
-      "Bash(flutter analyze:*)"
+      "Bash(flutter analyze:*)",
+      "Bash(tree:*)"
     ],
     "deny": [],
     "ask": []

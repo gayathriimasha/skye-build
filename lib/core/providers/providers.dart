@@ -4,6 +4,7 @@ import '../../data/services/location_service.dart';
 import '../../data/services/storage_service.dart';
 import '../../data/repositories/weather_repository.dart';
 import '../../data/repositories/location_repository.dart';
+import '../../data/repositories/weather_alerts_repository.dart';
 
 // Services
 final apiServiceProvider = Provider<ApiService>((ref) => ApiService());
@@ -23,4 +24,9 @@ final locationRepositoryProvider = Provider<LocationRepository>((ref) {
   final locationService = ref.read(locationServiceProvider);
   final storageService = ref.read(storageServiceProvider);
   return LocationRepository(apiService, locationService, storageService);
+});
+
+final weatherAlertsRepositoryProvider = Provider<WeatherAlertsRepository>((ref) {
+  final apiService = ref.read(apiServiceProvider);
+  return WeatherAlertsRepository(apiService);
 });

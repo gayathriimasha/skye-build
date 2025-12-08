@@ -295,22 +295,33 @@ class _AuraSearchScreenState extends ConsumerState<AuraSearchScreen> {
             },
             child: Container(
               margin: const EdgeInsets.only(bottom: 12),
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(
                 color: AuraColors.glassLight,
                 borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: Colors.white.withOpacity(0.1),
+                  width: 1,
+                ),
               ),
               child: Row(
                 children: [
                   Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: AuraColors.skyBlue.withOpacity(0.2),
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          AuraColors.skyBlue,
+                          const Color.fromARGB(255, 54, 122, 185),
+                        ],
+                      ),
                       borderRadius: BorderRadius.circular(14),
                     ),
                     child: Icon(
                       Icons.location_on_rounded,
-                      color: AuraColors.skyBlue,
+                      color: Colors.white,
                       size: 24,
                     ),
                   ),
